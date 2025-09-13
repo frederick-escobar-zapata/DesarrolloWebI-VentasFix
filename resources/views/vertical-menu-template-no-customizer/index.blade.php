@@ -345,6 +345,39 @@
               </ul>
             </li>
             <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Clients">Clients</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('clientes.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">List by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.create') }}" class="menu-link">
+                    <div data-i18n="Add Client">Add Client</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Update by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Delete by ID</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
               <a href="app-chat.html" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-messages"></i>
                 <div data-i18n="Chat">Chat</div>

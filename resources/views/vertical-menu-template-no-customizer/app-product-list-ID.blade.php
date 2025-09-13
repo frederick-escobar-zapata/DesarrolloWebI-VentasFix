@@ -308,39 +308,6 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item active open">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-package"></i>
-                <div data-i18n="Products">Products</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{{ route('productos.index') }}" class="menu-link">
-                    <div data-i18n="List">Listar Todos</div>
-                  </a>
-                </li>
-                <li class="menu-item active">
-                  <a href="{{ route('productos.list-by-id') }}" class="menu-link">
-                    <div data-i18n="List by ID">Buscar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('productos.create') }}" class="menu-link">
-                    <div data-i18n="Add Product">Crear Producto</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('productos.actualizar-por-id') }}" class="menu-link">
-                    <div data-i18n="Update by ID">Actualizar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('productos.eliminar-por-id') }}" class="menu-link">
-                    <div data-i18n="Delete by ID">Eliminar por ID</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
             <li class="menu-item">
               <a href="app-chat.html" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-messages"></i>
@@ -385,7 +352,7 @@
                 <div data-i18n="Email">Email</div>
               </a>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-users"></i>
                 <div data-i18n="Users">Users</div>
@@ -396,7 +363,7 @@
                     <div data-i18n="List">List</div>
                   </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="{{ route('usuarios.list-by-id') }}" class="menu-link">
                     <div data-i18n="List by ID">Buscar por ID</div>
                   </a>
@@ -450,7 +417,7 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-package"></i>
                 <div data-i18n="Products">Products</div>
@@ -461,8 +428,8 @@
                     <div data-i18n="List">List</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link" onclick="buscarProductoPorId()">
+                <li class="menu-item active">
+                  <a href="{{ route('productos.list-by-id') }}" class="menu-link">
                     <div data-i18n="List by ID">List by ID</div>
                   </a>
                 </li>
@@ -502,6 +469,39 @@
                       </a>
                     </li>
                   </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Clients">Clients</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('clientes.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">List by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.create') }}" class="menu-link">
+                    <div data-i18n="Add Client">Add Client</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Update by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Delete by ID</div>
+                  </a>
                 </li>
               </ul>
             </li>

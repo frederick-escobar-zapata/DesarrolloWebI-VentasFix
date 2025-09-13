@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\UsuarioWebController;
 use App\Http\Controllers\Web\ProductoWebController;
+use App\Http\Controllers\Web\ClienteWebController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,31 @@ Route::put('/productos/{id}', [ProductoWebController::class, 'update'])->name('p
 Route::delete('/productos/{id}', [ProductoWebController::class, 'destroy'])->name('productos.destroy');
 
 // ============================================================================
+// GESTIÓN DE CLIENTES - CRUD BÁSICO + FUNCIONES ESPECIALES
+// ============================================================================
+// Lista de todos los clientes
+Route::get('/clientes', [ClienteWebController::class, 'index'])->name('clientes.index');
+
+// Búsqueda específica de cliente por ID (función especial)
+Route::get('/clientes/buscar-por-id', [ClienteWebController::class, 'mostrarListarPorId'])->name('clientes.list-by-id');
+
+// Formulario para crear nuevo cliente
+Route::get('/clientes/crear', [ClienteWebController::class, 'mostrarCrear'])->name('clientes.create');
+
+// Procesar creación de cliente
+Route::post('/clientes', [ClienteWebController::class, 'crear'])->name('clientes.store');
+
+// Actualización de cliente por ID específico (GET para mostrar, POST para procesar)
+Route::get('/clientes/actualizar-por-id', [ClienteWebController::class, 'mostrarActualizarPorId'])->name('clientes.actualizar-por-id');
+Route::post('/clientes/actualizar-por-id', [ClienteWebController::class, 'actualizarPorId'])->name('clientes.actualizar-por-id.post');
+
+// Eliminación de cliente por ID específico (GET para mostrar, POST para buscar)
+Route::match(['GET', 'POST'], '/clientes/eliminar-por-id', [ClienteWebController::class, 'eliminarPorId'])->name('clientes.eliminar-por-id');
+
+// Procesamiento final de eliminación con confirmación (DELETE para seguridad)
+Route::delete('/clientes/eliminar-por-id/procesar', [ClienteWebController::class, 'procesarEliminarPorId'])->name('clientes.eliminar-por-id.procesar');
+
+// ============================================================================
 // AUTENTICACIÓN WEB - PENDIENTE DE IMPLEMENTACIÓN
 // ============================================================================
 // Estas rutas serán implementadas cuando se agregue el sistema de login web
@@ -104,10 +130,4 @@ Route::delete('/productos/{id}', [ProductoWebController::class, 'destroy'])->nam
 // Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// ============================================================================
-// RECURSOS ADICIONALES - PENDIENTE DE IMPLEMENTACIÓN
-// ============================================================================
-// Rutas para otras entidades del sistema como clientes, ventas, etc.
-// Route::resource('clientes', ClienteController::class);
-// Route::resource('ventas', VentaController::class);
-// Route::resource('reportes', ReporteController::class);
+// =============================================================

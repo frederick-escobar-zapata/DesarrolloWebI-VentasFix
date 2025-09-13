@@ -1,5 +1,21 @@
 <!doctype html>
 
+{{-- 
+  Vista para actualizar clientes por ID en VentasFix
+  
+  Esta página permite buscar un cliente específico por ID y luego
+  actualizar sus datos. Incluye un diseño de dos columnas:
+  - Columna izquierda: Información actual del cliente
+  - Columna derecha: Formulario de actualización
+  
+  Características principales:
+  - Búsqueda de cliente por ID
+  - Visualización de datos actuales vs nuevos datos
+  - Validación en tiempo real de formularios
+  - Diseño responsivo con Bootstrap
+  - CSS personalizado con animaciones sutiles
+--}}
+
 <html
   lang="es"
   class="light-style layout-navbar-fixed layout-menu-fixed layout-compact"
@@ -14,9 +30,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>{{ $titulo ?? 'Lista de Usuarios' }} - VentasFix</title>
+    {{-- Título dinámico basado en los datos del controlador --}}
+    <title>{{ $titulo ?? 'Actualizar Cliente' }} - VentasFix</title>
 
-    <meta name="description" content="{{ $subtitulo ?? 'Gestión de usuarios del sistema VentasFix' }}" />
+    {{-- Descripción meta para SEO --}}
+    <meta name="description" content="{{ $subtitulo ?? 'Actualización de clientes del sistema VentasFix' }}" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
@@ -59,6 +77,67 @@
 
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
+    
+    <!-- Custom CSS para forzar ancho completo -->
+    <style>
+      .layout-wrapper,
+      .layout-container,
+      .layout-content-navbar,
+      .content-wrapper {
+        max-width: none !important;
+        width: 100% !important;
+      }
+      
+      .container-fluid, 
+      .container-xxl, 
+      .container-xl, 
+      .container-lg, 
+      .container-md, 
+      .container-sm, 
+      .container {
+        max-width: none !important;
+        width: 100% !important;
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+      }
+      
+      .card {
+        width: 100% !important;
+        max-width: none !important;
+      }
+      
+      .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+      }
+      
+      .col-12 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+      }
+      
+      /* Específico para el contenido principal */
+      .layout-page {
+        width: 100% !important;
+        max-width: none !important;
+      }
+      
+      /* Eliminar restricciones de Bootstrap */
+      @media (min-width: 1200px) {
+        .container, .container-lg, .container-md, .container-sm, .container-xl {
+          max-width: none !important;
+        }
+      }
+      
+      @media (min-width: 1400px) {
+        .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+          max-width: none !important;
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -245,13 +324,13 @@
                 <div data-i18n="Email">Email</div>
               </a>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-users"></i>
                 <div data-i18n="Users">Users</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="{{ route('usuarios.index') }}" class="menu-link">
                     <div data-i18n="List">List</div>
                   </a>
@@ -365,7 +444,7 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-users"></i>
                 <div data-i18n="Clients">Clients</div>
@@ -386,7 +465,7 @@
                     <div data-i18n="Add Client">Add Client</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="{{ route('clientes.actualizar-por-id') }}" class="menu-link">
                     <div data-i18n="Update by ID">Update by ID</div>
                   </a>
@@ -1834,258 +1913,277 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <!-- VentasFix Statistics Cards -->
-              <div class="row g-6 mb-6">
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Total Usuarios</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ count($usuarios) }}</h4>
-                            <p class="text-success mb-0">(Activos)</p>
-                          </div>
-                          <small class="mb-0">Usuarios registrados</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-primary">
-                            <i class="ti ti-users ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <!-- Formulario de búsqueda por ID -->
+              <div class="card mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                  <h5 class="card-title mb-0">Actualizar Cliente por ID</h5>
                 </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Total Usuarios</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ $usuarios->count() }}</h4>
-                            <p class="text-info mb-0">(Total)</p>
-                          </div>
-                          <small class="mb-0">Total de usuarios registrados</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-info">
-                            <i class="ti ti-user-shield ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
+                <div class="card-body">
+                  <form id="searchByIdForm" method="GET" action="{{ route('clientes.actualizar-por-id') }}" class="d-flex gap-3 align-items-end">
+                    <div class="flex-grow-1">
+                      <label for="id" class="form-label">ID del Cliente a Actualizar</label>
+                      <input 
+                        type="number" 
+                        class="form-control" 
+                        id="id" 
+                        name="id" 
+                        placeholder="Ingrese el ID del cliente a actualizar..." 
+                        value="{{ request('id') }}"
+                        min="1"
+                        required>
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Usuarios Activos</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ $usuarios->whereNotNull('email_verified_at')->count() }}</h4>
-                            <p class="text-success mb-0">(Verificados)</p>
-                          </div>
-                          <small class="mb-0">Usuarios con email verificado</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-success">
-                            <i class="ti ti-user-check ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
+                    <div>
+                      <button type="submit" class="btn btn-warning">
+                        <i class="ti ti-search me-2"></i>Buscar Cliente
+                      </button>
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Estado Sistema</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">Online</h4>
-                            <p class="text-success mb-0">(Activo)</p>
-                          </div>
-                          <small class="mb-0">Sistema VentasFix</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-warning">
-                            <i class="ti ti-server ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
+
+              <!-- VentasFix Statistics Cards -->
               
-              <!-- Users List Table -->
-              <div class="card">
-                <div class="card-header border-bottom">
-                  <h5 class="card-title mb-0">{{ $titulo ?? 'Lista de Usuarios' }}</h5>
-                  <p class="card-text text-muted mt-1">{{ $subtitulo ?? 'Gestión de usuarios del sistema VentasFix' }}</p>
+              @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="ti ti-check-circle me-2"></i>
+                  {{ session('success') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="card-datatable table-responsive">
-                  <table class="table table-bordered">
-                    <thead class="table-light">
-                      <tr>
-                        <th>ID</th>
-                        <th>RUT</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Fecha Creación</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @forelse($usuarios as $usuario)
-                        <tr>
-                          <td>{{ $usuario->id }}</td>
-                          <td>{{ $usuario->rut }}</td>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="avatar avatar-sm me-3">
-                                <span class="avatar-initial rounded-circle bg-label-primary">
-                                  {{ strtoupper(substr($usuario->nombre, 0, 1)) }}
+              @endif
+
+              @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <i class="ti ti-alert-circle me-2"></i>
+                  {{ session('error') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+
+              @if(isset($mensaje) && !empty($mensaje) && !session('success') && !session('error'))
+                <div class="alert alert-{{ isset($cliente) && $cliente ? 'info' : 'warning' }} alert-dismissible fade show" role="alert">
+                  <i class="ti ti-{{ isset($cliente) && $cliente ? 'info-circle' : 'alert-circle' }} me-2"></i>
+                  {{ $mensaje }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+
+              @if(isset($cliente) && $cliente)
+                <!-- Cliente encontrado - Formulario de actualización -->
+                <div class="card">
+                  <div class="card-header border-bottom">
+                    <h5 class="card-title mb-0 text-warning">Actualizar Cliente por ID</h5>
+                    <p class="card-text text-muted mt-1">Modifique los datos del cliente en el sistema</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <!-- Información actual del cliente -->
+                      <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                        <div class="card border border-info">
+                          <div class="card-header bg-label-info">
+                            <h6 class="card-title mb-0">Cliente Actual</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                              <div class="avatar avatar-lg me-3">
+                                <span class="avatar-initial rounded-circle bg-label-info fs-3">
+                                  {{ strtoupper(substr($cliente->nombre_contacto ?? 'C', 0, 1)) }}{{ strtoupper(substr($cliente->razon_social ?? 'L', 0, 1)) }}
                                 </span>
                               </div>
                               <div>
-                                <h6 class="mb-0">{{ $usuario->nombre }}</h6>
+                                <h5 class="mb-0">{{ $cliente->nombre_contacto }} - {{ $cliente->razon_social }}</h5>
+                                <small class="text-muted">ID: {{ $cliente->id }}</small>
                               </div>
                             </div>
-                          </td>
-                          <td>{{ $usuario->apellido }}</td>
-                          <td>{{ $usuario->email }}</td>
-                          <td>{{ $usuario->created_at->format('d/m/Y H:i') }}</td>
-                        </tr>
-                      @empty
-                        <tr>
-                          <td colspan="6" class="text-center py-4">
-                            <div class="d-flex flex-column align-items-center">
-                              <i class="ti ti-users-off ti-48px text-muted mb-2"></i>
-                              <h6 class="mb-1">No hay usuarios</h6>
-                              <p class="text-muted">No se encontraron usuarios en el sistema</p>
-                            </div>
-                          </td>
-                        </tr>
-                      @endforelse
-                    </tbody>
-                  </table>
-                </div>
-                <!-- Offcanvas to add new user -->
-                <div
-                  class="offcanvas offcanvas-end"
-                  tabindex="-1"
-                  id="offcanvasAddUser"
-                  aria-labelledby="offcanvasAddUserLabel">
-                  <div class="offcanvas-header border-bottom">
-                    <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add User</h5>
-                    <button
-                      type="button"
-                      class="btn-close text-reset"
-                      data-bs-dismiss="offcanvas"
-                      aria-label="Close"></button>
+                            <ul class="list-unstyled mb-0">
+                              <li class="mb-1"><strong>RUT:</strong> {{ $cliente->rut_empresa }}</li>
+                              <li class="mb-1"><strong>Email:</strong> {{ $cliente->email_contacto }}</li>
+                              <li class="mb-1"><strong>Teléfono:</strong> {{ $cliente->telefono }}</li>
+                              <li class="mb-1"><strong>Rubro:</strong> {{ $cliente->rubro }}</li>
+                              <li class="mb-0"><strong>Registrado:</strong> {{ $cliente->created_at->format('d/m/Y') }}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Formulario de actualización -->
+                      <div class="col-lg-8 col-md-12">
+                        <div class="card border border-warning">
+                          <div class="card-header bg-label-warning">
+                            <h6 class="card-title mb-0">Actualizar Datos</h6>
+                          </div>
+                          <div class="card-body">
+                            <form method="POST" action="{{ route('clientes.actualizar-por-id.post') }}" id="updateClientForm">
+                              @csrf
+                              @method('POST')
+                              <input type="hidden" name="id" value="{{ $cliente->id }}">
+                              <input type="hidden" name="action" value="update">
+                              
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <label for="rut" class="form-label">RUT <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('rut') is-invalid @enderror" 
+                                           id="rut" name="rut" value="{{ old('rut', $cliente->rut_empresa) }}" 
+                                           placeholder="12345678-9 o 12.345.678-9" required>
+                                    <div class="invalid-feedback d-block" id="rut-error"></div>
+                                    @error('rut')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    <div class="form-text">
+                                      <i class="ti ti-info-circle me-1"></i>Puede usar puntos (12.345.678-9) o sin puntos (12345678-9)
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <label for="razon_social" class="form-label">Razón Social <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('razon_social') is-invalid @enderror" 
+                                           id="razon_social" name="razon_social" value="{{ old('razon_social', $cliente->razon_social) }}" 
+                                           placeholder="Nombre de la empresa" required maxlength="255">
+                                    @error('razon_social')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    <div class="form-text">
+                                      <i class="ti ti-info-circle me-1"></i>Nombre oficial de la empresa
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror" 
+                                           id="email" name="email" value="{{ old('email', $cliente->email_contacto) }}" 
+                                           placeholder="contacto@empresa.com" required maxlength="255"
+                                           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                                    @error('email')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    <div class="form-text">
+                                      <i class="ti ti-info-circle me-1"></i>Email de contacto de la empresa
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <label for="telefono" class="form-label">Teléfono <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control @error('telefono') is-invalid @enderror" 
+                                           id="telefono" name="telefono" value="{{ old('telefono', $cliente->telefono) }}" 
+                                           placeholder="+56912345678" required maxlength="20"
+                                           pattern="^[\+]?[0-9\-\(\)\s]+$"
+                                           title="Solo números, espacios, guiones, paréntesis y signo +">
+                                    @error('telefono')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    <div class="form-text">
+                                      <i class="ti ti-info-circle me-1"></i>Solo números y símbolos permitidos
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <label for="nombre_contacto" class="form-label">Nombre de Contacto <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('nombre_contacto') is-invalid @enderror" 
+                                           id="nombre_contacto" name="nombre_contacto" value="{{ old('nombre_contacto', $cliente->nombre_contacto) }}" 
+                                           placeholder="Nombre completo del contacto" required maxlength="255"
+                                           pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$"
+                                           title="Solo letras y espacios">
+                                    @error('nombre_contacto')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    <div class="form-text">
+                                      <i class="ti ti-info-circle me-1"></i>Solo letras y espacios
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <label for="rubro" class="form-label">Rubro <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('rubro') is-invalid @enderror" 
+                                           id="rubro" name="rubro" value="{{ old('rubro', $cliente->rubro) }}" 
+                                           placeholder="Comercio, Servicios, etc." required maxlength="100"
+                                           pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s\.,\-\/\(\)]+$"
+                                           title="Solo letras, espacios y signos de puntuación">
+                                    @error('rubro')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    <div class="form-text">
+                                      <i class="ti ti-info-circle me-1"></i>Solo letras, espacios y signos de puntuación
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="mb-3">
+                                    <label for="direccion" class="form-label">Dirección</label>
+                                    <input type="text" class="form-control @error('direccion') is-invalid @enderror" 
+                                           id="direccion" name="direccion" value="{{ old('direccion', $cliente->direccion) }}" 
+                                           placeholder="Dirección completa" maxlength="255">
+                                    @error('direccion')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    <div class="form-text">
+                                      <i class="ti ti-info-circle me-1"></i>Campo opcional
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-warning" id="btnActualizar">
+                                  <i class="ti ti-device-floppy me-2"></i>Actualizar Cliente
+                                </button>
+                                <a href="{{ route('clientes.actualizar-por-id') }}" class="btn btn-outline-secondary">
+                                  <i class="ti ti-arrow-left me-2"></i>Cancelar
+                                </a>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="offcanvas-body mx-0 flex-grow-0 p-6 h-100">
-                    <form class="add-new-user pt-0" id="addNewUserForm" onsubmit="return false">
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="add-user-fullname"
-                          placeholder="John Doe"
-                          name="userFullname"
-                          aria-label="John Doe" />
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-email">Email</label>
-                        <input
-                          type="text"
-                          id="add-user-email"
-                          class="form-control"
-                          placeholder="john.doe@example.com"
-                          aria-label="john.doe@example.com"
-                          name="userEmail" />
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-contact">Contact</label>
-                        <input
-                          type="text"
-                          id="add-user-contact"
-                          class="form-control phone-mask"
-                          placeholder="+1 (609) 988-44-11"
-                          aria-label="john.doe@example.com"
-                          name="userContact" />
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-company">Company</label>
-                        <input
-                          type="text"
-                          id="add-user-company"
-                          class="form-control"
-                          placeholder="Web Developer"
-                          aria-label="jdoe1"
-                          name="companyName" />
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="country">Country</label>
-                        <select id="country" class="select2 form-select">
-                          <option value="">Select</option>
-                          <option value="Australia">Australia</option>
-                          <option value="Bangladesh">Bangladesh</option>
-                          <option value="Belarus">Belarus</option>
-                          <option value="Brazil">Brazil</option>
-                          <option value="Canada">Canada</option>
-                          <option value="China">China</option>
-                          <option value="France">France</option>
-                          <option value="Germany">Germany</option>
-                          <option value="India">India</option>
-                          <option value="Indonesia">Indonesia</option>
-                          <option value="Israel">Israel</option>
-                          <option value="Italy">Italy</option>
-                          <option value="Japan">Japan</option>
-                          <option value="Korea">Korea, Republic of</option>
-                          <option value="Mexico">Mexico</option>
-                          <option value="Philippines">Philippines</option>
-                          <option value="Russia">Russian Federation</option>
-                          <option value="South Africa">South Africa</option>
-                          <option value="Thailand">Thailand</option>
-                          <option value="Turkey">Turkey</option>
-                          <option value="Ukraine">Ukraine</option>
-                          <option value="United Arab Emirates">United Arab Emirates</option>
-                          <option value="United Kingdom">United Kingdom</option>
-                          <option value="United States">United States</option>
-                        </select>
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="user-role">User Role</label>
-                        <select id="user-role" class="form-select">
-                          <option value="subscriber">Subscriber</option>
-                          <option value="editor">Editor</option>
-                          <option value="maintainer">Maintainer</option>
-                          <option value="author">Author</option>
-                          <option value="admin">Admin</option>
-                        </select>
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="user-plan">Select Plan</label>
-                        <select id="user-plan" class="form-select">
-                          <option value="basic">Basic</option>
-                          <option value="enterprise">Enterprise</option>
-                          <option value="company">Company</option>
-                          <option value="team">Team</option>
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary me-3 data-submit">Submit</button>
-                      <button type="reset" class="btn btn-label-danger" data-bs-dismiss="offcanvas">Cancel</button>
-                    </form>
+                </div>
+              @elseif(request('id'))
+                <!-- Cliente no encontrado -->
+                <div class="card">
+                  <div class="card-body text-center py-5">
+                    <div class="d-flex flex-column align-items-center">
+                      <i class="ti ti-user-off ti-64px text-muted mb-3"></i>
+                      <h5 class="mb-2">Cliente No Encontrado</h5>
+                      <p class="text-muted mb-4">No se encontró ningún cliente con el ID: <strong>{{ request('id') }}</strong></p>
+                      <a href="{{ route('clientes.actualizar-por-id') }}" class="btn btn-warning">
+                        <i class="ti ti-search me-2"></i>Buscar Otro Cliente
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
+              @else
+                <!-- Instrucciones iniciales -->
+                <div class="card">
+                  <div class="card-body text-center py-5">
+                    <div class="d-flex flex-column align-items-center">
+                      <i class="ti ti-search ti-64px text-muted mb-3"></i>
+                      <h5 class="mb-2">Actualizar Cliente por ID</h5>
+                      <p class="text-muted mb-4">Ingrese el ID del cliente que desea actualizar</p>
+                      <div class="alert alert-info d-inline-block" role="alert">
+                        <i class="ti ti-info-circle me-2"></i>
+                        <strong>Nota:</strong> Podrá modificar todos los datos del cliente encontrado.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endif
             </div>
             <!-- / Content -->
 
@@ -2170,18 +2268,182 @@
 
     <!-- VentasFix Custom JS -->
     <script>
-        // Función para confirmar eliminación
-        function confirmarEliminar(id) {
-            if(confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-                // Aquí se implementaría la eliminación via AJAX o formulario
-                console.log('Eliminar usuario:', id);
-                alert('Funcionalidad de eliminación por implementar');
-            }
-        }
-        
-        // Configuración para silenciar advertencias de DataTables
         $(document).ready(function() {
+            // Configuración para silenciar advertencias de DataTables
             $.fn.dataTable.ext.errMode = 'none';
+            
+            // Validación del RUT chileno
+            function validarRutChileno(rut) {
+                // Eliminar puntos y guiones
+                rut = rut.replace(/[.-]/g, '');
+                
+                if (rut.length < 8 || rut.length > 9) return false;
+                
+                const cuerpo = rut.slice(0, -1);
+                const dv = rut.slice(-1).toLowerCase();
+                
+                if (!/^\d+$/.test(cuerpo)) return false;
+                
+                // Cálculo del dígito verificador
+                let suma = 0;
+                let multiplicador = 2;
+                
+                for (let i = cuerpo.length - 1; i >= 0; i--) {
+                    suma += parseInt(cuerpo[i]) * multiplicador;
+                    multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+                }
+                
+                const resto = suma % 11;
+                const dvCalculado = resto === 0 ? '0' : resto === 1 ? 'k' : (11 - resto).toString();
+                
+                return dv === dvCalculado;
+            }
+            
+            // Función para validar solo letras (SIN ESPACIOS)
+            function validarSoloLetras(texto) {
+                const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+$/; // Sin espacios
+                return regex.test(texto.trim()) && texto.trim().length > 0;
+            }
+            
+            // Función para generar email automáticamente
+            function generarEmail() {
+                const nombre = $('#nombre').val().trim();
+                const apellido = $('#apellido').val().trim();
+                
+                if (nombre && apellido && validarSoloLetras(nombre) && validarSoloLetras(apellido)) {
+                    const nombreLimpio = nombre.toLowerCase()
+                        .replace(/[áàäâ]/g, 'a')
+                        .replace(/[éèëê]/g, 'e')
+                        .replace(/[íìïî]/g, 'i')
+                        .replace(/[óòöô]/g, 'o')
+                        .replace(/[úùüû]/g, 'u')
+                        .replace(/[ñ]/g, 'n');
+                    
+                    const apellidoLimpio = apellido.toLowerCase()
+                        .replace(/[áàäâ]/g, 'a')
+                        .replace(/[éèëê]/g, 'e')
+                        .replace(/[íìïî]/g, 'i')
+                        .replace(/[óòöô]/g, 'o')
+                        .replace(/[úùüû]/g, 'u')
+                        .replace(/[ñ]/g, 'n');
+                    
+                    const emailGenerado = nombreLimpio + '.' + apellidoLimpio + '@ventasfix.cl';
+                    $('#email').val(emailGenerado);
+                }
+            }
+            
+            // Filtrar caracteres mientras se escribe (solo letras, sin espacios)
+            $('#nombre, #apellido').on('input', function() {
+                // Filtrar caracteres no permitidos
+                let valor = $(this).val().replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]/g, '');
+                $(this).val(valor);
+                
+                const fieldName = $(this).attr('name');
+                const errorDiv = $('#' + fieldName + '-error');
+                
+                if (valor === '') {
+                    $(this).removeClass('is-valid is-invalid').addClass('is-invalid');
+                    errorDiv.text('Este campo es obligatorio.').show();
+                } else if (validarSoloLetras(valor)) {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                    errorDiv.hide();
+                    generarEmail(); // Regenerar email cuando cambien nombre o apellido
+                } else {
+                    $(this).removeClass('is-valid').addClass('is-invalid');
+                    errorDiv.text('Solo se permiten letras, sin espacios ni números.').show();
+                }
+            });
+            
+            // Prevenir espacios y caracteres no válidos al presionar teclas
+            $('#nombre, #apellido').on('keypress', function(e) {
+                const char = String.fromCharCode(e.which);
+                const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]$/;
+                
+                if (!regex.test(char)) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Prevenir pegar contenido con espacios o caracteres inválidos
+            $('#nombre, #apellido').on('paste', function(e) {
+                setTimeout(() => {
+                    let valor = $(this).val().replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]/g, '');
+                    $(this).val(valor).trigger('input');
+                }, 1);
+            });
+            
+            // Formatear RUT mientras se escribe
+            $('#rut').on('input', function() {
+                let valor = $(this).val().replace(/[^0-9kK]/g, '');
+                
+                if (valor.length > 1) {
+                    valor = valor.slice(0, -1).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '-' + valor.slice(-1);
+                }
+                
+                $(this).val(valor);
+                
+                // Validar RUT
+                if (valor.length >= 8) {  // Cambiado de 9 a 8 para aceptar RUTs más cortos
+                    if (validarRutChileno(valor)) {
+                        $(this).removeClass('is-invalid').addClass('is-valid');
+                        $('#rut-error').text('');
+                    } else {
+                        $(this).removeClass('is-valid').addClass('is-invalid');
+                        $('#rut-error').text('RUT inválido. Verifique el formato.');
+                    }
+                } else {
+                    $(this).removeClass('is-valid is-invalid');
+                    $('#rut-error').text('');
+                }
+            });
+            
+            // Validación del formulario antes del envío
+            $('#updateUserForm').on('submit', function(e) {
+                let valido = true;
+                
+                // Validar RUT
+                const rut = $('#rut').val().trim();
+                if (!rut || !validarRutChileno(rut)) {
+                    $('#rut').addClass('is-invalid');
+                    $('#rut-error').text('Debe ingresar un RUT válido.');
+                    valido = false;
+                }
+                
+                // Validar nombre
+                const nombre = $('#nombre').val().trim();
+                if (!nombre || !validarSoloLetras(nombre)) {
+                    $('#nombre').addClass('is-invalid');
+                    $('#nombre-error').text('El nombre es obligatorio y solo debe contener letras, sin espacios.').show();
+                    valido = false;
+                }
+                
+                // Validar apellido
+                const apellido = $('#apellido').val().trim();
+                if (!apellido || !validarSoloLetras(apellido)) {
+                    $('#apellido').addClass('is-invalid');
+                    $('#apellido-error').text('El apellido es obligatorio y solo debe contener letras, sin espacios.').show();
+                    valido = false;
+                }
+                
+                // Generar email automáticamente antes del envío
+                if (nombre && apellido) {
+                    generarEmail();
+                }
+                const email = $('#email').val().trim();
+                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    $('#email').addClass('is-invalid');
+                    valido = false;
+                }
+                
+                if (!valido) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Deshabilitar el botón para evitar envíos múltiples
+                $('#btnActualizar').prop('disabled', true).html('<i class="ti ti-loader me-2"></i>Actualizando...');
+            });
         });
     </script>
   </body>

@@ -73,36 +73,18 @@
             <a href="{{ route('dashboard') }}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
-                    fill="#7367F0" />
-                  <path
-                    opacity="0.06"
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z"
-                    fill="#161616" />
-                  <path
-                    opacity="0.06"
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z"
-                    fill="#161616" />
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
-                    fill="#7367F0" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z" fill="#7367F0" />
+                  <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z" fill="#161616" />
+                  <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z" fill="#161616" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z" fill="#7367F0" />
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bold">VentasFix</span>
+              <span class="app-brand-text demo menu-text fw-bold">Vuexy</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-              <i class="ti menu-toggle-icon d-none d-xl-block ti-sm align-middle"></i>
-              <i class="ti ti-x d-block d-xl-none ti-sm align-middle"></i>
+              <i class="ti menu-toggle-icon d-none d-xl-block align-middle"></i>
+              <i class="ti ti-x d-block d-xl-none ti-md align-middle"></i>
             </a>
           </div>
 
@@ -118,7 +100,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="index.html" class="menu-link">
+                  <a href="{{ route('dashboard') }}" class="menu-link">
                     <div data-i18n="Analytics">Analytics</div>
                   </a>
                 </li>
@@ -276,6 +258,38 @@
                   <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
                     <div data-i18n="Delete by ID">Eliminar por ID</div>
                   </a>
+                </li>                
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-user-view-account.html" class="menu-link">
+                        <div data-i18n="Account">Account</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-security.html" class="menu-link">
+                        <div data-i18n="Security">Security</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-billing.html" class="menu-link">
+                        <div data-i18n="Billing & Plans">Billing & Plans</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-notifications.html" class="menu-link">
+                        <div data-i18n="Notifications">Notifications</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-connections.html" class="menu-link">
+                        <div data-i18n="Connections">Connections</div>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
@@ -287,7 +301,7 @@
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="{{ route('productos.index') }}" class="menu-link">
-                    <div data-i18n="List">Lista</div>
+                    <div data-i18n="List">Listar Todos</div>
                   </a>
                 </li>
                 <li class="menu-item">
@@ -297,7 +311,7 @@
                 </li>
                 <li class="menu-item">
                   <a href="{{ route('productos.create') }}" class="menu-link">
-                    <div data-i18n="Add Product">Agregar Producto</div>
+                    <div data-i18n="Add Product">Crear Producto</div>
                   </a>
                 </li>
                 <li class="menu-item">
@@ -313,10 +327,528 @@
               </ul>
             </li>
             <li class="menu-item">
-              <a href="app-chat.html" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-messages"></i>
-                <div data-i18n="Chat">Chat</div>
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Clients">Clients</div>
               </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('clientes.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">List by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.create') }}" class="menu-link">
+                    <div data-i18n="Add Client">Add Client</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Update by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Delete by ID</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- Apps & Pages -->
+            <li class="menu-header small">
+              <span class="menu-header-text" data-i18n="Apps & Pages">Apps &amp; Pages</span>
+            </li>
+            <li class="menu-item">
+              <a href="app-email.html" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-mail"></i>
+                <div data-i18n="Email">Email</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Users">Users</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">Buscar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.create') }}" class="menu-link">
+                    <div data-i18n="Add User">Agregar Usuario</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-user-view-account.html" class="menu-link">
+                        <div data-i18n="Account">Account</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-security.html" class="menu-link">
+                        <div data-i18n="Security">Security</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-billing.html" class="menu-link">
+                        <div data-i18n="Billing & Plans">Billing & Plans</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-notifications.html" class="menu-link">
+                        <div data-i18n="Notifications">Notifications</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-connections.html" class="menu-link">
+                        <div data-i18n="Connections">Connections</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item active open">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-package"></i>
+                <div data-i18n="Products">Products</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('productos.index') }}" class="menu-link">
+                    <div data-i18n="List">Listar Todos</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">Buscar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.create') }}" class="menu-link">
+                    <div data-i18n="Add Product">Crear Producto</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="{{ route('productos.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Clients">Clients</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('clientes.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">List by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.create') }}" class="menu-link">
+                    <div data-i18n="Add Client">Add Client</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Update by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('clientes.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Delete by ID</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- Menú: se continua con las siguientes secciones -->
+            <li class="menu-item">
+              <a href="app-calendar.html" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-calendar"></i>
+                <div data-i18n="Calendar">Calendar</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="app-kanban.html" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-layout-kanban"></i>
+                <div data-i18n="Kanban">Kanban</div>
+              </a>
+            </li>
+            <!-- e-commerce-app menu start -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-shopping-cart"></i>
+                <div data-i18n="eCommerce">eCommerce</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="app-ecommerce-dashboard.html" class="menu-link">
+                    <div data-i18n="Dashboard">Dashboard</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="Products">Products</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="{{ route('productos.index') }}" class="menu-link">
+                        <div data-i18n="Product List">Product List</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-ecommerce-product-add.html" class="menu-link">
+                        <div data-i18n="Add Product">Add Product</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-ecommerce-category-list.html" class="menu-link">
+                        <div data-i18n="Category List">Category List</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="Order">Order</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-ecommerce-order-list.html" class="menu-link">
+                        <div data-i18n="Order List">Order List</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-ecommerce-order-details.html" class="menu-link">
+                        <div data-i18n="Order Details">Order Details</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="Customer">Customer</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-ecommerce-customer-all.html" class="menu-link">
+                        <div data-i18n="All Customers">All Customers</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <div data-i18n="Customer Details">Customer Details</div>
+                      </a>
+                      <ul class="menu-sub">
+                        <li class="menu-item">
+                          <a href="app-ecommerce-customer-details-overview.html" class="menu-link">
+                            <div data-i18n="Overview">Overview</div>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="app-ecommerce-customer-details-security.html" class="menu-link">
+                            <div data-i18n="Security">Security</div>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="app-ecommerce-customer-details-billing.html" class="menu-link">
+                            <div data-i18n="Address & Billing">Address & Billing</div>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="app-ecommerce-customer-details-notifications.html" class="menu-link">
+                            <div data-i18n="Notifications">Notifications</div>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li class="menu-item">
+                  <a href="app-ecommerce-manage-reviews.html" class="menu-link">
+                    <div data-i18n="Manage Reviews">Manage Reviews</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="app-ecommerce-referral.html" class="menu-link">
+                    <div data-i18n="Referrals">Referrals</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="Settings">Settings</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-ecommerce-settings-detail.html" class="menu-link">
+                        <div data-i18n="Store Details">Store Details</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-ecommerce-settings-payments.html" class="menu-link">
+                        <div data-i18n="Payments">Payments</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-ecommerce-settings-checkout.html" class="menu-link">
+                        <div data-i18n="Checkout">Checkout</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-ecommerce-settings-shipping.html" class="menu-link">
+                        <div data-i18n="Shipping & Delivery">Shipping & Delivery</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-ecommerce-settings-locations.html" class="menu-link">
+                        <div data-i18n="Locations">Locations</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-ecommerce-settings-notifications.html" class="menu-link">
+                        <div data-i18n="Notifications">Notifications</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <!-- e-commerce-app menu end -->
+            <!-- Academy menu start -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-book"></i>
+                <div data-i18n="Academy">Academy</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="app-academy-dashboard.html" class="menu-link">
+                    <div data-i18n="Dashboard">Dashboard</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="app-academy-course.html" class="menu-link">
+                    <div data-i18n="My Course">My Course</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="app-academy-course-details.html" class="menu-link">
+                    <div data-i18n="Course Details">Course Details</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- Academy menu end -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-truck"></i>
+                <div data-i18n="Logistics">Logistics</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="app-logistics-dashboard.html" class="menu-link">
+                    <div data-i18n="Dashboard">Dashboard</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="app-logistics-fleet.html" class="menu-link">
+                    <div data-i18n="Fleet">Fleet</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-file-dollar"></i>
+                <div data-i18n="Invoice">Invoice</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="app-invoice-list.html" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="app-invoice-preview.html" class="menu-link">
+                    <div data-i18n="Preview">Preview</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="app-invoice-edit.html" class="menu-link">
+                    <div data-i18n="Edit">Edit</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="app-invoice-add.html" class="menu-link">
+                    <div data-i18n="Add">Add</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-settings"></i>
+                <div data-i18n="Roles & Permissions">Roles & Permissions</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="app-access-roles.html" class="menu-link">
+                    <div data-i18n="Roles">Roles</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="app-access-permission.html" class="menu-link">
+                    <div data-i18n="Permission">Permission</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-file"></i>
+                <div data-i18n="Pages">Pages</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="User Profile">User Profile</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="pages-profile-user.html" class="menu-link">
+                        <div data-i18n="Profile">Profile</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="pages-profile-teams.html" class="menu-link">
+                        <div data-i18n="Teams">Teams</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="pages-profile-projects.html" class="menu-link">
+                        <div data-i18n="Projects">Projects</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="pages-profile-connections.html" class="menu-link">
+                        <div data-i18n="Connections">Connections</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="Account Settings">Account Settings</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Account</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="pages-account-settings-security.html" class="menu-link">
+                        <div data-i18n="Security">Security</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="pages-account-settings-billing.html" class="menu-link">
+                        <div data-i18n="Billing & Plans">Billing & Plans</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="pages-account-settings-notifications.html" class="menu-link">
+                        <div data-i18n="Notifications">Notifications</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="pages-account-settings-connections.html" class="menu-link">
+                        <div data-i18n="Connections">Connections</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="menu-item">
+                  <a href="pages-faq.html" class="menu-link">
+                    <div data-i18n="FAQ">FAQ</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="pages-pricing.html" class="menu-link">
+                    <div data-i18n="Pricing">Pricing</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="Misc">Misc</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="pages-misc-error.html" class="menu-link" target="_blank">
+                        <div data-i18n="Error">Error</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="pages-misc-under-maintenance.html" class="menu-link" target="_blank">
+                        <div data-i18n="Under Maintenance">Under Maintenance</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="pages-misc-comingsoon.html" class="menu-link" target="_blank">
+                        <div data-i18n="Coming Soon">Coming Soon</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="pages-misc-not-authorized.html" class="menu-link" target="_blank">
+                        <div data-i18n="Not Authorized">Not Authorized</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </li>
           </ul>
         </aside>
