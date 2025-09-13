@@ -1,4 +1,21 @@
-<!doctype html>
+  <!doctype html>
+
+{{-- 
+  Vista para crear nuevos productos en VentasFix
+  
+  Esta página permite a los administradores agregar nuevos productos al inventario.
+  Incluye validación en tiempo real, generación automática de SKU,
+  y manejo de stock e imágenes.
+  
+  Características principales:
+  - Formulario con validación JavaScript
+  - Generación automática de SKU
+  - Manejo de precios neto y venta
+  - Control de stock con niveles mínimos
+  - Carga de imágenes de productos
+  - Mensajes de éxito/error con componentes flash
+  - Diseño responsivo con Bootstrap
+--}}
 
 <html
   lang="es"
@@ -14,9 +31,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>{{ $titulo ?? 'Lista de Usuarios' }} - VentasFix</title>
+    {{-- Título dinámico de la página --}}
+    <title>{{ $titulo ?? 'Crear Producto' }} - VentasFix</title>
 
-    <meta name="description" content="{{ $subtitulo ?? 'Gestión de usuarios del sistema VentasFix' }}" />
+    {{-- Meta descripción para SEO --}}
+    <meta name="description" content="{{ $subtitulo ?? 'Agregar nuevo producto al inventario de VentasFix' }}" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
@@ -245,13 +264,13 @@
                 <div data-i18n="Email">Email</div>
               </a>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-users"></i>
                 <div data-i18n="Users">Users</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="{{ route('usuarios.index') }}" class="menu-link">
                     <div data-i18n="List">List</div>
                   </a>
@@ -310,7 +329,7 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-package"></i>
                 <div data-i18n="Products">Products</div>
@@ -318,50 +337,28 @@
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="{{ route('productos.index') }}" class="menu-link">
-                    <div data-i18n="List">List</div>
+                    <div data-i18n="List">Listar Todos</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link" onclick="buscarProductoPorId()">
-                    <div data-i18n="List by ID">List by ID</div>
+                  <a href="{{ route('productos.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">Buscar por ID</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="{{ route('productos.create') }}" class="menu-link">
-                    <div data-i18n="Add Product">Add Product</div>
+                    <div data-i18n="Add Product">Crear Producto</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link" onclick="actualizarProductoPorId()">
-                    <div data-i18n="Update by ID">Update by ID</div>
+                  <a href="{{ route('productos.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Actualizar por ID</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link" onclick="eliminarProductoPorId()">
-                    <div data-i18n="Delete by ID">Delete by ID</div>
+                  <a href="{{ route('productos.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Eliminar por ID</div>
                   </a>
-                </li>                
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="View">View</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link" onclick="verProductoPorId()">
-                        <div data-i18n="Details">Details</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link">
-                        <div data-i18n="Inventory">Inventory</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link">
-                        <div data-i18n="History">History</div>
-                      </a>
-                    </li>
-                  </ul>
                 </li>
               </ul>
             </li>
@@ -383,217 +380,6 @@
                 <div data-i18n="Kanban">Kanban</div>
               </a>
             </li>
-            <!-- e-commerce-app menu start -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-shopping-cart"></i>
-                <div data-i18n="eCommerce">eCommerce</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-ecommerce-dashboard.html" class="menu-link">
-                    <div data-i18n="Dashboard">Dashboard</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Products">Products</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="{{ route('productos.index') }}" class="menu-link">
-                        <div data-i18n="Product List">Product List</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-product-add.html" class="menu-link">
-                        <div data-i18n="Add Product">Add Product</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-category-list.html" class="menu-link">
-                        <div data-i18n="Category List">Category List</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Order">Order</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-ecommerce-order-list.html" class="menu-link">
-                        <div data-i18n="Order List">Order List</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-order-details.html" class="menu-link">
-                        <div data-i18n="Order Details">Order Details</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Customer">Customer</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-ecommerce-customer-all.html" class="menu-link">
-                        <div data-i18n="All Customers">All Customers</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <div data-i18n="Customer Details">Customer Details</div>
-                      </a>
-                      <ul class="menu-sub">
-                        <li class="menu-item">
-                          <a href="app-ecommerce-customer-details-overview.html" class="menu-link">
-                            <div data-i18n="Overview">Overview</div>
-                          </a>
-                        </li>
-                        <li class="menu-item">
-                          <a href="app-ecommerce-customer-details-security.html" class="menu-link">
-                            <div data-i18n="Security">Security</div>
-                          </a>
-                        </li>
-                        <li class="menu-item">
-                          <a href="app-ecommerce-customer-details-billing.html" class="menu-link">
-                            <div data-i18n="Address & Billing">Address & Billing</div>
-                          </a>
-                        </li>
-                        <li class="menu-item">
-                          <a href="app-ecommerce-customer-details-notifications.html" class="menu-link">
-                            <div data-i18n="Notifications">Notifications</div>
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="app-ecommerce-manage-reviews.html" class="menu-link">
-                    <div data-i18n="Manage Reviews">Manage Reviews</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-ecommerce-referral.html" class="menu-link">
-                    <div data-i18n="Referrals">Referrals</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Settings">Settings</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-detail.html" class="menu-link">
-                        <div data-i18n="Store Details">Store Details</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-payments.html" class="menu-link">
-                        <div data-i18n="Payments">Payments</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-checkout.html" class="menu-link">
-                        <div data-i18n="Checkout">Checkout</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-shipping.html" class="menu-link">
-                        <div data-i18n="Shipping & Delivery">Shipping & Delivery</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-locations.html" class="menu-link">
-                        <div data-i18n="Locations">Locations</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-ecommerce-settings-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Notifications</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <!-- e-commerce-app menu end -->
-            <!-- Academy menu start -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-book"></i>
-                <div data-i18n="Academy">Academy</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-academy-dashboard.html" class="menu-link">
-                    <div data-i18n="Dashboard">Dashboard</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-academy-course.html" class="menu-link">
-                    <div data-i18n="My Course">My Course</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-academy-course-details.html" class="menu-link">
-                    <div data-i18n="Course Details">Course Details</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <!-- Academy menu end -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-truck"></i>
-                <div data-i18n="Logistics">Logistics</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-logistics-dashboard.html" class="menu-link">
-                    <div data-i18n="Dashboard">Dashboard</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-logistics-fleet.html" class="menu-link">
-                    <div data-i18n="Fleet">Fleet</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-file-dollar"></i>
-                <div data-i18n="Invoice">Invoice</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-invoice-list.html" class="menu-link">
-                    <div data-i18n="List">List</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-invoice-preview.html" class="menu-link">
-                    <div data-i18n="Preview">Preview</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-invoice-edit.html" class="menu-link">
-                    <div data-i18n="Edit">Edit</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-invoice-add.html" class="menu-link">
-                    <div data-i18n="Add">Add</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-settings"></i>
@@ -611,254 +397,6 @@
                   </a>
                 </li>
               </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-file"></i>
-                <div data-i18n="Pages">Pages</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="User Profile">User Profile</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="pages-profile-user.html" class="menu-link">
-                        <div data-i18n="Profile">Profile</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-profile-teams.html" class="menu-link">
-                        <div data-i18n="Teams">Teams</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-profile-projects.html" class="menu-link">
-                        <div data-i18n="Projects">Projects</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-profile-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Account Settings">Account Settings</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Account</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-account-settings-security.html" class="menu-link">
-                        <div data-i18n="Security">Security</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-account-settings-billing.html" class="menu-link">
-                        <div data-i18n="Billing & Plans">Billing & Plans</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-account-settings-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Notifications</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-account-settings-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-faq.html" class="menu-link">
-                    <div data-i18n="FAQ">FAQ</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-pricing.html" class="menu-link">
-                    <div data-i18n="Pricing">Pricing</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Misc">Misc</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="pages-misc-error.html" class="menu-link" target="_blank">
-                        <div data-i18n="Error">Error</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-misc-under-maintenance.html" class="menu-link" target="_blank">
-                        <div data-i18n="Under Maintenance">Under Maintenance</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-misc-comingsoon.html" class="menu-link" target="_blank">
-                        <div data-i18n="Coming Soon">Coming Soon</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="pages-misc-not-authorized.html" class="menu-link" target="_blank">
-                        <div data-i18n="Not Authorized">Not Authorized</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-lock"></i>
-                <div data-i18n="Authentications">Authentications</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Login">Login</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                        <div data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-login-cover.html" class="menu-link" target="_blank">
-                        <div data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Register">Register</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                        <div data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-register-cover.html" class="menu-link" target="_blank">
-                        <div data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-register-multisteps.html" class="menu-link" target="_blank">
-                        <div data-i18n="Multi-steps">Multi-steps</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Verify Email">Verify Email</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-verify-email-basic.html" class="menu-link" target="_blank">
-                        <div data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-verify-email-cover.html" class="menu-link" target="_blank">
-                        <div data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Reset Password">Reset Password</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-reset-password-basic.html" class="menu-link" target="_blank">
-                        <div data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-reset-password-cover.html" class="menu-link" target="_blank">
-                        <div data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Forgot Password">Forgot Password</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                        <div data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-forgot-password-cover.html" class="menu-link" target="_blank">
-                        <div data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="Two Steps">Two Steps</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="auth-two-steps-basic.html" class="menu-link" target="_blank">
-                        <div data-i18n="Basic">Basic</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="auth-two-steps-cover.html" class="menu-link" target="_blank">
-                        <div data-i18n="Cover">Cover</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-forms"></i>
-                <div data-i18n="Wizard Examples">Wizard Examples</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="wizard-ex-checkout.html" class="menu-link">
-                    <div data-i18n="Checkout">Checkout</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="wizard-ex-property-listing.html" class="menu-link">
-                    <div data-i18n="Property Listing">Property Listing</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="wizard-ex-create-deal.html" class="menu-link">
-                    <div data-i18n="Create Deal">Create Deal</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="modal-examples.html" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-square"></i>
-                <div data-i18n="Modal Examples">Modal Examples</div>
-              </a>
             </li>
 
             <!-- Components -->
@@ -1801,147 +1339,418 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <!-- VentasFix Statistics Cards -->
-              <div class="row g-6 mb-6">
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Total Usuarios</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ count($usuarios) }}</h4>
-                            <p class="text-success mb-0">(Activos)</p>
-                          </div>
-                          <small class="mb-0">Usuarios registrados</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-primary">
-                            <i class="ti ti-users ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <!-- Mensajes de éxito/error -->
+              @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="ti ti-check me-2"></i>
+                  {{ session('success') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Total Usuarios</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ $usuarios->count() }}</h4>
-                            <p class="text-info mb-0">(Total)</p>
-                          </div>
-                          <small class="mb-0">Total de usuarios registrados</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-info">
-                            <i class="ti ti-user-shield ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              @endif
+
+              @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <i class="ti ti-x me-2"></i>
+                  {{ session('error') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Usuarios Activos</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ $usuarios->whereNotNull('email_verified_at')->count() }}</h4>
-                            <p class="text-success mb-0">(Verificados)</p>
-                          </div>
-                          <small class="mb-0">Usuarios con email verificado</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-success">
-                            <i class="ti ti-user-check ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Estado Sistema</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">Online</h4>
-                            <p class="text-success mb-0">(Activo)</p>
-                          </div>
-                          <small class="mb-0">Sistema VentasFix</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-warning">
-                            <i class="ti ti-server ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Users List Table -->
+              @endif
+
+              {{-- Formulario principal de creación de producto --}}
               <div class="card">
                 <div class="card-header border-bottom">
-                  <h5 class="card-title mb-0">{{ $titulo ?? 'Lista de Usuarios' }}</h5>
-                  <p class="card-text text-muted mt-1">{{ $subtitulo ?? 'Gestión de usuarios del sistema VentasFix' }}</p>
+                  {{-- Títulos dinámicos desde el controlador --}}
+                  <h5 class="card-title mb-0">{{ $titulo ?? 'Crear Producto' }}</h5>
+                  <p class="card-text text-muted mt-1">{{ $subtitulo ?? 'Agregar nuevo producto al inventario' }}</p>
                 </div>
-                <div class="card-datatable table-responsive">
-                  <table class="table table-bordered">
-                    <thead class="table-light">
-                      <tr>
-                        <th>ID</th>
-                        <th>RUT</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Fecha Creación</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @forelse($usuarios as $usuario)
-                        <tr>
-                          <td>{{ $usuario->id }}</td>
-                          <td>{{ $usuario->rut }}</td>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="avatar avatar-sm me-3">
-                                <span class="avatar-initial rounded-circle bg-label-primary">
-                                  {{ strtoupper(substr($usuario->nombre, 0, 1)) }}
-                                </span>
-                              </div>
-                              <div>
-                                <h6 class="mb-0">{{ $usuario->nombre }}</h6>
-                              </div>
-                            </div>
-                          </td>
-                          <td>{{ $usuario->apellido }}</td>
-                          <td>{{ $usuario->email }}</td>
-                          <td>{{ $usuario->created_at->format('d/m/Y H:i') }}</td>
-                        </tr>
-                      @empty
-                        <tr>
-                          <td colspan="6" class="text-center py-4">
-                            <div class="d-flex flex-column align-items-center">
-                              <i class="ti ti-users-off ti-48px text-muted mb-2"></i>
-                              <h6 class="mb-1">No hay usuarios</h6>
-                              <p class="text-muted">No se encontraron usuarios en el sistema</p>
-                            </div>
-                          </td>
-                        </tr>
-                      @endforelse
-                    </tbody>
-                  </table>
+                <div class="card-body">
+                  {{-- Formulario con método POST protegido por CSRF --}}
+                  <form method="POST" action="{{ route('productos.store') }}">
+                    @csrf
+                    
+                    <div class="row">
+                      {{-- Campo Nombre del Producto --}}
+                      <div class="col-md-6 mb-3">
+                        <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+                        <input 
+                          type="text" 
+                          class="form-control @error('nombre') is-invalid @enderror" 
+                          id="nombre" 
+                          name="nombre" 
+                          placeholder="Ingrese el nombre del producto..." 
+                          value="{{ old('nombre') }}"
+                          required>
+                        @error('nombre')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class="invalid-feedback" id="nombre-error" style="display: none;">
+                          Este campo es obligatorio
+                        </div>
+                      </div>
+
+                      <!-- SKU del Producto -->
+                      <div class="col-md-6 mb-3">
+                        <label for="sku" class="form-label">SKU <span class="text-danger">*</span></label>
+                        <input 
+                          type="text" 
+                          class="form-control @error('sku') is-invalid @enderror" 
+                          id="sku" 
+                          name="sku" 
+                          placeholder="Código único del producto..." 
+                          value="{{ old('sku') }}"
+                          required>
+                        @error('sku')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <small class="form-text text-muted">Código único identificador del producto</small>
+                      </div>
+
+                      <!-- Descripción Corta -->
+                      <div class="col-12 mb-3">
+                        <label for="descripcion_corta" class="form-label">Descripción Corta <span class="text-danger">*</span></label>
+                        <textarea 
+                          class="form-control @error('descripcion_corta') is-invalid @enderror" 
+                          id="descripcion_corta" 
+                          name="descripcion_corta" 
+                          rows="2"
+                          placeholder="Descripción breve del producto..."
+                          required>{{ old('descripcion_corta') }}</textarea>
+                        @error('descripcion_corta')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+
+                      <!-- Descripción Larga -->
+                      <div class="col-12 mb-3">
+                        <label for="descripcion_larga" class="form-label">Descripción Detallada <span class="text-danger">*</span></label>
+                        <textarea 
+                          class="form-control @error('descripcion_larga') is-invalid @enderror" 
+                          id="descripcion_larga" 
+                          name="descripcion_larga" 
+                          rows="4"
+                          placeholder="Descripción detallada del producto..."
+                          required>{{ old('descripcion_larga') }}</textarea>
+                        @error('descripcion_larga')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+
+                      {{-- Precios --}}
+                      <div class="col-md-6 mb-3">
+                        <label for="precio_neto" class="form-label">Precio Neto <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text">$</span>
+                          <input 
+                            type="number" 
+                            class="form-control @error('precio_neto') is-invalid @enderror" 
+                            id="precio_neto" 
+                            name="precio_neto" 
+                            placeholder="0" 
+                            value="{{ old('precio_neto') }}"
+                            min="0"
+                            step="0.01"
+                            required>
+                        </div>
+                        @error('precio_neto')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <small class="form-text text-muted">Precio sin IVA</small>
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                        <label for="precio_venta" class="form-label">Precio Venta <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <span class="input-group-text">$</span>
+                          <input 
+                            type="number" 
+                            class="form-control @error('precio_venta') is-invalid @enderror" 
+                            id="precio_venta" 
+                            name="precio_venta" 
+                            placeholder="0" 
+                            value="{{ old('precio_venta') }}"
+                            min="0"
+                            step="0.01"
+                            readonly
+                            style="background-color: #f8f9fa; cursor: not-allowed;"
+                            required>
+                        </div>
+                        @error('precio_venta')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <small class="form-text text-info">
+                          <i class="ti ti-info-circle me-1"></i>Se calcula automáticamente agregando 19% IVA al precio neto
+                        </small>
+                      </div>
+
+                      {{-- Stock --}}
+                      <div class="col-md-4 mb-3">
+                        <label for="stock_actual" class="form-label">Stock Actual <span class="text-danger">*</span></label>
+                        <input 
+                          type="number" 
+                          class="form-control @error('stock_actual') is-invalid @enderror" 
+                          id="stock_actual" 
+                          name="stock_actual" 
+                          placeholder="0" 
+                          value="{{ old('stock_actual') }}"
+                          min="0"
+                          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                          required>
+                        @error('stock_actual')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <small class="form-text text-muted">Solo números enteros</small>
+                      </div>
+
+                      <div class="col-md-4 mb-3">
+                        <label for="stock_minimo" class="form-label">Stock Mínimo <span class="text-danger">*</span></label>
+                        <input 
+                          type="number" 
+                          class="form-control @error('stock_minimo') is-invalid @enderror" 
+                          id="stock_minimo" 
+                          name="stock_minimo" 
+                          placeholder="0" 
+                          value="{{ old('stock_minimo') }}"
+                          min="0"
+                          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                          required>
+                        @error('stock_minimo')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <small class="form-text text-muted">Solo números enteros</small>
+                      </div>
+
+                      <div class="col-md-4 mb-3">
+                        <label for="imagen_url" class="form-label">URL de Imagen <span class="text-danger">*</span></label>
+                        <input 
+                          type="url" 
+                          class="form-control @error('imagen_url') is-invalid @enderror" 
+                          id="imagen_url" 
+                          name="imagen_url" 
+                          placeholder="https://ejemplo.com/imagen.jpg" 
+                          value="{{ old('imagen_url') }}"
+                          required>
+                        @error('imagen_url')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <small class="form-text text-muted">URL de la imagen del producto</small>
+                      </div>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-flex justify-content-between">
+                      <a href="{{ route('productos.index') }}" class="btn btn-outline-secondary">
+                        <i class="ti ti-arrow-left me-2"></i>Volver a Lista
+                      </a>
+                      <button type="submit" class="btn btn-primary" id="submit-btn">
+                        <i class="ti ti-package-plus me-2"></i>Agregar Producto
+                      </button>
+                    </div>
+                  </form>
+                  
+                  {{-- Script de validación para el formulario de productos --}}
+                  <script>
+                    // Validación del formulario antes de enviar al servidor
+                    document.querySelector('form').addEventListener('submit', function(e) {
+                      const nombre = document.getElementById('nombre').value.trim();
+                      const sku = document.getElementById('sku').value.trim();
+                      const descripcion_corta = document.getElementById('descripcion_corta').value.trim();
+                      const descripcion_larga = document.getElementById('descripcion_larga').value.trim();
+                      const precio_neto = document.getElementById('precio_neto').value;
+                      const precio_venta = document.getElementById('precio_venta').value;
+                      const stock_actual = document.getElementById('stock_actual').value;
+                      const imagen_url = document.getElementById('imagen_url').value.trim();
+                      
+                      let hasError = false;
+                      
+                      // Validar campos obligatorios
+                      if (!nombre) {
+                        document.getElementById('nombre').classList.add('is-invalid');
+                        document.getElementById('nombre-error').textContent = 'El nombre del producto es obligatorio';
+                        document.getElementById('nombre-error').style.display = 'block';
+                        hasError = true;
+                      } else {
+                        document.getElementById('nombre').classList.remove('is-invalid');
+                        document.getElementById('nombre-error').style.display = 'none';
+                      }
+                      
+                      // Validar SKU
+                      if (!sku) {
+                        document.getElementById('sku').classList.add('is-invalid');
+                        hasError = true;
+                      } else {
+                        document.getElementById('sku').classList.remove('is-invalid');
+                      }
+                      
+                      // Validar descripción corta
+                      if (!descripcion_corta) {
+                        document.getElementById('descripcion_corta').classList.add('is-invalid');
+                        hasError = true;
+                      } else {
+                        document.getElementById('descripcion_corta').classList.remove('is-invalid');
+                      }
+                      
+                      // Validar descripción larga
+                      if (!descripcion_larga) {
+                        document.getElementById('descripcion_larga').classList.add('is-invalid');
+                        hasError = true;
+                      } else {
+                        document.getElementById('descripcion_larga').classList.remove('is-invalid');
+                      }
+                      
+                      // Validar precio neto
+                      if (!precio_neto || precio_neto <= 0) {
+                        document.getElementById('precio_neto').classList.add('is-invalid');
+                        hasError = true;
+                      } else {
+                        document.getElementById('precio_neto').classList.remove('is-invalid');
+                      }
+                      
+                      // Validar stock actual
+                      if (!stock_actual || stock_actual < 0) {
+                        document.getElementById('stock_actual').classList.add('is-invalid');
+                        hasError = true;
+                      } else {
+                        document.getElementById('stock_actual').classList.remove('is-invalid');
+                      }
+                      
+                      // Validar imagen URL
+                      if (!imagen_url) {
+                        document.getElementById('imagen_url').classList.add('is-invalid');
+                        hasError = true;
+                      } else {
+                        document.getElementById('imagen_url').classList.remove('is-invalid');
+                      }
+                      
+                      if (hasError) {
+                        e.preventDefault();
+                        alert('Por favor, complete todos los campos obligatorios antes de continuar.');
+                        return false;
+                      }
+                      
+                      // Si no hay errores, mostrar mensaje de procesamiento
+                      document.getElementById('submit-btn').innerHTML = '<i class="ti ti-loader-2 me-2"></i>Procesando...';
+                      document.getElementById('submit-btn').disabled = true;
+                    });
+
+                    // Calcular automáticamente el precio de venta basado en el precio neto (agregar 19% IVA)
+                    document.getElementById('precio_neto').addEventListener('input', function() {
+                      const precioNeto = parseFloat(this.value);
+                      if (precioNeto && precioNeto > 0) {
+                        const precioVenta = (precioNeto * 1.19).toFixed(2);
+                        document.getElementById('precio_venta').value = precioVenta;
+                      } else {
+                        document.getElementById('precio_venta').value = '';
+                      }
+                    });
+
+                    // Validar que solo se ingresen números enteros en campos de stock
+                    ['stock_actual', 'stock_minimo'].forEach(function(fieldId) {
+                      document.getElementById(fieldId).addEventListener('input', function() {
+                        // Eliminar cualquier caracter que no sea número
+                        this.value = this.value.replace(/[^0-9]/g, '');
+                        
+                        if (this.value < 0) {
+                          this.value = 0;
+                        }
+                      });
+                      
+                      // Prevenir entrada de caracteres no numéricos
+                      document.getElementById(fieldId).addEventListener('keypress', function(e) {
+                        if (!/[0-9]/.test(String.fromCharCode(e.which))) {
+                          e.preventDefault();
+                        }
+                      });
+                    });
+
+                    // Validar precios para que solo acepten números y decimales
+                    document.getElementById('precio_neto').addEventListener('input', function() {
+                      if (this.value < 0) {
+                        this.value = 0;
+                      }
+                    });
+
+                    // Función para limpiar el formulario después del éxito
+                    function limpiarFormulario() {
+                      document.getElementById('nombre').value = '';
+                      document.getElementById('sku').value = '';
+                      document.getElementById('descripcion_corta').value = '';
+                      document.getElementById('descripcion_larga').value = '';
+                      document.getElementById('precio_neto').value = '';
+                      document.getElementById('precio_venta').value = '';
+                      document.getElementById('stock_actual').value = '';
+                      document.getElementById('stock_minimo').value = '';
+                      document.getElementById('imagen_url').value = '';
+                      
+                      // Remover clases de validación
+                      document.querySelectorAll('.is-invalid').forEach(function(element) {
+                        element.classList.remove('is-invalid');
+                      });
+                      
+                      // Ocultar mensajes de error
+                      document.querySelectorAll('.invalid-feedback').forEach(function(element) {
+                        element.style.display = 'none';
+                      });
+                      
+                      // Restaurar el botón a su estado original
+                      document.getElementById('submit-btn').innerHTML = '<i class="ti ti-package-plus me-2"></i>Agregar Producto';
+                      document.getElementById('submit-btn').disabled = false;
+                      
+                      // Enfocar el primer campo
+                      document.getElementById('nombre').focus();
+                    }
+
+                    // Verificar si hay mensaje de éxito y limpiar formulario
+                    @if(session('success'))
+                      setTimeout(function() {
+                        limpiarFormulario();
+                        
+                        // Mostrar mensaje de éxito en HTML
+                        mostrarMensajeExito('{{ session('success') }}');
+                        
+                        // Restaurar el botón
+                        document.getElementById('submit-btn').innerHTML = '<i class="ti ti-package-plus me-2"></i>Agregar Producto';
+                        document.getElementById('submit-btn').disabled = false;
+                      }, 100);
+                    @endif
+
+                    // Función para mostrar mensaje de éxito
+                    function mostrarMensajeExito(mensaje) {
+                      // Crear el elemento del mensaje si no existe
+                      let mensajeExito = document.getElementById('mensaje-exito');
+                      if (!mensajeExito) {
+                        mensajeExito = document.createElement('div');
+                        mensajeExito.id = 'mensaje-exito';
+                        mensajeExito.className = 'alert alert-success alert-dismissible fade show';
+                        mensajeExito.setAttribute('role', 'alert');
+                        
+                        // Insertar antes del formulario
+                        const cardBody = document.querySelector('.card-body');
+                        const form = document.querySelector('form');
+                        cardBody.insertBefore(mensajeExito, form);
+                      }
+                      
+                      mensajeExito.innerHTML = `
+                        <i class="ti ti-check me-2"></i>
+                        ${mensaje}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      `;
+                      
+                      // Auto-ocultar después de 5 segundos
+                      setTimeout(function() {
+                        if (mensajeExito) {
+                          mensajeExito.style.transition = 'opacity 0.5s';
+                          mensajeExito.style.opacity = '0';
+                          setTimeout(function() {
+                            if (mensajeExito && mensajeExito.parentNode) {
+                              mensajeExito.parentNode.removeChild(mensajeExito);
+                            }
+                          }, 500);
+                        }
+                      }, 5000);
+                    }
+                  </script>
                 </div>
+              </div>
                 <!-- Offcanvas to add new user -->
                 <div
                   class="offcanvas offcanvas-end"

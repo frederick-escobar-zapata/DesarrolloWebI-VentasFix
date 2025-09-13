@@ -1,5 +1,21 @@
 <!doctype html>
 
+{{-- 
+  Vista para actualizar productos por ID en VentasFix
+  
+  Esta página permite buscar un producto específico por ID y luego
+  actualizar sus datos. Incluye un diseño de dos columnas:
+  - Columna izquierda: Información actual del producto
+  - Columna derecha: Formulario de actualización
+  
+  Características principales:
+  - Búsqueda de producto por ID
+  - Visualización de datos actuales vs nuevos datos
+  - Validación en tiempo real de formularios
+  - Diseño responsivo con Bootstrap
+  - CSS personalizado con animaciones sutiles
+--}}
+
 <html
   lang="es"
   class="light-style layout-navbar-fixed layout-menu-fixed layout-compact"
@@ -14,9 +30,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>{{ $titulo ?? 'Lista de Usuarios' }} - VentasFix</title>
+    {{-- Título dinámico basado en los datos del controlador --}}
+    <title>{{ $titulo ?? 'Actualizar Producto' }} - VentasFix</title>
 
-    <meta name="description" content="{{ $subtitulo ?? 'Gestión de usuarios del sistema VentasFix' }}" />
+    {{-- Descripción meta para SEO --}}
+    <meta name="description" content="{{ $subtitulo ?? 'Actualización de productos del sistema VentasFix' }}" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
@@ -245,13 +263,13 @@
                 <div data-i18n="Email">Email</div>
               </a>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-users"></i>
                 <div data-i18n="Users">Users</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="{{ route('usuarios.index') }}" class="menu-link">
                     <div data-i18n="List">List</div>
                   </a>
@@ -275,8 +293,218 @@
                   <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
                     <div data-i18n="Delete by ID">Eliminar por ID</div>
                   </a>
-                </li>                
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-package"></i>
+                <div data-i18n="Products">Products</div>
+              </a>
+              <ul class="menu-sub">
                 <li class="menu-item">
+                  <a href="{{ route('productos.index') }}" class="menu-link">
+                    <div data-i18n="List">Lista</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">Buscar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.create') }}" class="menu-link">
+                    <div data-i18n="Add Product">Agregar Producto</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="{{ route('productos.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-user-view-account.html" class="menu-link">
+                        <div data-i18n="Account">Account</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-security.html" class="menu-link">
+                        <div data-i18n="Security">Security</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-billing.html" class="menu-link">
+                        <div data-i18n="Billing & Plans">Billing & Plans</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-notifications.html" class="menu-link">
+                        <div data-i18n="Notifications">Notifications</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-connections.html" class="menu-link">
+                        <div data-i18n="Connections">Connections</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item active open">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-package"></i>
+                <div data-i18n="Products">Products</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('productos.index') }}" class="menu-link">
+                    <div data-i18n="List">Listar Todos</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">Buscar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.create') }}" class="menu-link">
+                    <div data-i18n="Add Product">Crear Producto</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="{{ route('productos.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="app-chat.html" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-messages"></i>
+                <div data-i18n="Chat">Chat</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="app-calendar.html" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-calendar"></i>
+                <div data-i18n="Calendar">Calendar</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="app-kanban.html" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-layout-kanban"></i>
+                <div data-i18n="Kanban">Kanban</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-settings"></i>
+                <div data-i18n="Roles & Permissions">Roles & Permissions</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="app-access-roles.html" class="menu-link">
+                    <div data-i18n="Roles">Roles</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="app-access-permission.html" class="menu-link">
+                    <div data-i18n="Permission">Permission</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Components -->
+            <li class="menu-item">
+              <a href="app-email.html" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-mail"></i>
+                <div data-i18n="Email">Email</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Users">Users</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">Buscar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.create') }}" class="menu-link">
+                    <div data-i18n="Add User">Agregar Usuario</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item active open">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-package"></i>
+                <div data-i18n="Products">Products</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('productos.index') }}" class="menu-link">
+                    <div data-i18n="List">Lista</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">Buscar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.create') }}" class="menu-link">
+                    <div data-i18n="Add Product">Agregar Producto</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="{{ route('productos.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <div data-i18n="View">View</div>
                   </a>
@@ -1403,10 +1631,10 @@
                       <div class="row row-bordered overflow-visible g-0">
                         <div class="dropdown-shortcuts-item col">
                           <span class="dropdown-shortcuts-icon rounded-circle mb-3">
-                            <i class="ti ti-user ti-26px text-heading"></i>
+                            <i class="ti ti-package ti-26px text-heading"></i>
                           </span>
-                          <a href="app-user-list.html" class="stretched-link">User App</a>
-                          <small>Manage Users</small>
+                          <a href="{{ route('productos.index') }}" class="stretched-link">Product App</a>
+                          <small>Manage Products</small>
                         </div>
                         <div class="dropdown-shortcuts-item col">
                           <span class="dropdown-shortcuts-icon rounded-circle mb-3">
@@ -1801,258 +2029,290 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <!-- VentasFix Statistics Cards -->
-              <div class="row g-6 mb-6">
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Total Usuarios</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ count($usuarios) }}</h4>
-                            <p class="text-success mb-0">(Activos)</p>
-                          </div>
-                          <small class="mb-0">Usuarios registrados</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-primary">
-                            <i class="ti ti-users ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <!-- Formulario de búsqueda por ID -->
+              <div class="card mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                  <h5 class="card-title mb-0">Actualizar Producto por ID</h5>
                 </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Total Usuarios</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ $usuarios->count() }}</h4>
-                            <p class="text-info mb-0">(Total)</p>
-                          </div>
-                          <small class="mb-0">Total de usuarios registrados</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-info">
-                            <i class="ti ti-user-shield ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
+                <div class="card-body">
+                  <form id="searchByIdForm" method="GET" action="{{ route('productos.actualizar-por-id') }}" class="d-flex gap-3 align-items-end">
+                    <div class="flex-grow-1">
+                      <label for="producto_id" class="form-label">ID del Producto a Actualizar</label>
+                      <input 
+                        type="number" 
+                        class="form-control" 
+                        id="producto_id" 
+                        name="producto_id" 
+                        placeholder="Ingrese el ID del producto a actualizar..." 
+                        value="{{ request('producto_id') }}"
+                        min="1"
+                        required>
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Usuarios Activos</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ $usuarios->whereNotNull('email_verified_at')->count() }}</h4>
-                            <p class="text-success mb-0">(Verificados)</p>
-                          </div>
-                          <small class="mb-0">Usuarios con email verificado</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-success">
-                            <i class="ti ti-user-check ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
+                    <div>
+                      <button type="submit" class="btn btn-warning">
+                        <i class="ti ti-search me-2"></i>Buscar Producto
+                      </button>
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Estado Sistema</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">Online</h4>
-                            <p class="text-success mb-0">(Activo)</p>
-                          </div>
-                          <small class="mb-0">Sistema VentasFix</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-warning">
-                            <i class="ti ti-server ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
+
+              <!-- VentasFix Statistics Cards -->
               
-              <!-- Users List Table -->
-              <div class="card">
-                <div class="card-header border-bottom">
-                  <h5 class="card-title mb-0">{{ $titulo ?? 'Lista de Usuarios' }}</h5>
-                  <p class="card-text text-muted mt-1">{{ $subtitulo ?? 'Gestión de usuarios del sistema VentasFix' }}</p>
+              @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="ti ti-check-circle me-2"></i>
+                  {{ session('success') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="card-datatable table-responsive">
-                  <table class="table table-bordered">
-                    <thead class="table-light">
-                      <tr>
-                        <th>ID</th>
-                        <th>RUT</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Fecha Creación</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @forelse($usuarios as $usuario)
-                        <tr>
-                          <td>{{ $usuario->id }}</td>
-                          <td>{{ $usuario->rut }}</td>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="avatar avatar-sm me-3">
-                                <span class="avatar-initial rounded-circle bg-label-primary">
-                                  {{ strtoupper(substr($usuario->nombre, 0, 1)) }}
+              @endif
+
+              @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <i class="ti ti-alert-circle me-2"></i>
+                  {{ session('error') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+
+              @if(isset($mensaje) && !empty($mensaje) && !session('success') && !session('error'))
+                <div class="alert alert-{{ isset($producto) && $producto ? 'info' : 'warning' }} alert-dismissible fade show" role="alert">
+                  <i class="ti ti-{{ isset($producto) && $producto ? 'info-circle' : 'alert-circle' }} me-2"></i>
+                  {{ $mensaje }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+             
+              @if(isset($producto) && $producto)
+                <!-- Producto encontrado - Formulario de actualización -->
+                <div class="card">
+                  <div class="card-header border-bottom">
+                    <h5 class="card-title mb-0 text-warning">{{ $titulo ?? 'Actualizar Producto por ID' }}</h5>
+                    <p class="card-text text-muted mt-1">{{ $subtitulo ?? 'Modifique los datos del producto en el sistema' }}</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <!-- Información actual del producto -->
+                      <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                        <div class="card border border-info">
+                          <div class="card-header bg-label-info">
+                            <h6 class="card-title mb-0">Producto Actual</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                              <div class="avatar avatar-lg me-3">
+                                <span class="avatar-initial rounded-circle bg-label-info fs-3">
+                                  {{ strtoupper(substr($producto->nombre, 0, 1)) }}{{ strtoupper(substr($producto->sku, 0, 1)) }}
                                 </span>
                               </div>
                               <div>
-                                <h6 class="mb-0">{{ $usuario->nombre }}</h6>
+                                <h5 class="mb-0">{{ $producto->nombre }}</h5>
+                                <small class="text-muted">ID: {{ $producto->id }} | SKU: {{ $producto->sku }}</small>
                               </div>
                             </div>
-                          </td>
-                          <td>{{ $usuario->apellido }}</td>
-                          <td>{{ $usuario->email }}</td>
-                          <td>{{ $usuario->created_at->format('d/m/Y H:i') }}</td>
-                        </tr>
-                      @empty
-                        <tr>
-                          <td colspan="6" class="text-center py-4">
-                            <div class="d-flex flex-column align-items-center">
-                              <i class="ti ti-users-off ti-48px text-muted mb-2"></i>
-                              <h6 class="mb-1">No hay usuarios</h6>
-                              <p class="text-muted">No se encontraron usuarios en el sistema</p>
-                            </div>
-                          </td>
-                        </tr>
-                      @endforelse
-                    </tbody>
-                  </table>
-                </div>
-                <!-- Offcanvas to add new user -->
-                <div
-                  class="offcanvas offcanvas-end"
-                  tabindex="-1"
-                  id="offcanvasAddUser"
-                  aria-labelledby="offcanvasAddUserLabel">
-                  <div class="offcanvas-header border-bottom">
-                    <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add User</h5>
-                    <button
-                      type="button"
-                      class="btn-close text-reset"
-                      data-bs-dismiss="offcanvas"
-                      aria-label="Close"></button>
+                            <ul class="list-unstyled mb-0">
+                              <li class="mb-1"><strong>Precio Venta:</strong> ${{ number_format($producto->precio_venta, 0, ',', '.') }}</li>
+                              <li class="mb-1"><strong>Stock Actual:</strong> {{ $producto->stock_actual }} unidades</li>
+                              <li class="mb-0"><strong>Registrado:</strong> {{ $producto->created_at->format('d/m/Y') }}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Formulario de actualización -->
+                      <div class="col-lg-8 col-md-12">
+                        <div class="card border border-warning">
+                          <div class="card-header bg-label-warning">
+                            <h6 class="card-title mb-0">Actualizar Datos</h6>
+                          </div>
+                          <div class="card-body">
+                            <form method="POST" action="{{ route('productos.actualizar-por-id') }}" id="updateProductForm">
+                              @csrf
+                              @method('POST')
+                              <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+                              <input type="hidden" name="action" value="update">
+                              
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" 
+                                           id="nombre" name="nombre" value="{{ old('nombre', $producto->nombre) }}" 
+                                           placeholder="Nombre del producto..." required>
+                                    @error('nombre')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                  </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <label for="sku" class="form-label">SKU <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('sku') is-invalid @enderror" 
+                                           id="sku" name="sku" value="{{ old('sku', $producto->sku) }}" 
+                                           placeholder="Código único del producto..." required>
+                                    @error('sku')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    <small class="form-text text-muted">Código único identificador del producto</small>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="mb-3">
+                                    <label for="descripcion_corta" class="form-label">Descripción Corta <span class="text-danger">*</span></label>
+                                    <textarea class="form-control @error('descripcion_corta') is-invalid @enderror" 
+                                           id="descripcion_corta" name="descripcion_corta" rows="2"
+                                           placeholder="Descripción breve del producto..." required>{{ old('descripcion_corta', $producto->descripcion_corta) }}</textarea>
+                                    @error('descripcion_corta')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="mb-3">
+                                    <label for="descripcion_larga" class="form-label">Descripción Detallada <span class="text-danger">*</span></label>
+                                    <textarea class="form-control @error('descripcion_larga') is-invalid @enderror" 
+                                           id="descripcion_larga" name="descripcion_larga" rows="4"
+                                           placeholder="Descripción detallada del producto..." required>{{ old('descripcion_larga', $producto->descripcion_larga) }}</textarea>
+                                    @error('descripcion_larga')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <label for="precio_neto" class="form-label">Precio Neto <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                      <span class="input-group-text">$</span>
+                                      <input type="number" class="form-control @error('precio_neto') is-invalid @enderror" 
+                                             id="precio_neto" name="precio_neto" 
+                                             value="{{ old('precio_neto', $producto->precio_neto) }}" 
+                                             min="0" step="0.01" required>
+                                    </div>
+                                    @error('precio_neto')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    <small class="form-text text-muted">Precio sin IVA</small>
+                                  </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                  <div class="mb-3">
+                                    <label for="precio_venta" class="form-label">Precio Venta <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                      <span class="input-group-text">$</span>
+                                      <input type="number" class="form-control @error('precio_venta') is-invalid @enderror" 
+                                             id="precio_venta" name="precio_venta" 
+                                             value="{{ old('precio_venta', $producto->precio_venta) }}" 
+                                             min="0" step="0.01" readonly
+                                             style="background-color: #f8f9fa; cursor: not-allowed;" required>
+                                    </div>
+                                    @error('precio_venta')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    <small class="form-text text-info">
+                                      <i class="ti ti-info-circle me-1"></i>Se calcula automáticamente agregando 19% IVA al precio neto
+                                    </small>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <div class="mb-3">
+                                    <label for="stock_actual" class="form-label">Stock Actual <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control @error('stock_actual') is-invalid @enderror" 
+                                           id="stock_actual" name="stock_actual" 
+                                           value="{{ old('stock_actual', $producto->stock_actual) }}" 
+                                           min="0" required>
+                                    @error('stock_actual')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                  </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                  <div class="mb-3">
+                                    <label for="stock_minimo" class="form-label">Stock Mínimo <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control @error('stock_minimo') is-invalid @enderror" 
+                                           id="stock_minimo" name="stock_minimo" 
+                                           value="{{ old('stock_minimo', $producto->stock_minimo) }}" 
+                                           min="0" required>
+                                    @error('stock_minimo')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                  </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                  <div class="mb-3">
+                                    <label for="imagen_url" class="form-label">URL de Imagen <span class="text-danger">*</span></label>
+                                    <input type="url" class="form-control @error('imagen_url') is-invalid @enderror" 
+                                           id="imagen_url" name="imagen_url" 
+                                           value="{{ old('imagen_url', $producto->imagen_url) }}" 
+                                           placeholder="https://ejemplo.com/imagen.jpg" required>
+                                    @error('imagen_url')
+                                      <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                    <small class="form-text text-muted">URL de la imagen del producto (opcional)</small>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-warning" id="btnActualizar">
+                                  <i class="ti ti-device-floppy me-2"></i>Actualizar Producto
+                                </button>
+                                <a href="{{ route('productos.actualizar-por-id') }}" class="btn btn-outline-secondary">
+                                  <i class="ti ti-arrow-left me-2"></i>Cancelar
+                                </a>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="offcanvas-body mx-0 flex-grow-0 p-6 h-100">
-                    <form class="add-new-user pt-0" id="addNewUserForm" onsubmit="return false">
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="add-user-fullname"
-                          placeholder="John Doe"
-                          name="userFullname"
-                          aria-label="John Doe" />
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-email">Email</label>
-                        <input
-                          type="text"
-                          id="add-user-email"
-                          class="form-control"
-                          placeholder="john.doe@example.com"
-                          aria-label="john.doe@example.com"
-                          name="userEmail" />
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-contact">Contact</label>
-                        <input
-                          type="text"
-                          id="add-user-contact"
-                          class="form-control phone-mask"
-                          placeholder="+1 (609) 988-44-11"
-                          aria-label="john.doe@example.com"
-                          name="userContact" />
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-company">Company</label>
-                        <input
-                          type="text"
-                          id="add-user-company"
-                          class="form-control"
-                          placeholder="Web Developer"
-                          aria-label="jdoe1"
-                          name="companyName" />
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="country">Country</label>
-                        <select id="country" class="select2 form-select">
-                          <option value="">Select</option>
-                          <option value="Australia">Australia</option>
-                          <option value="Bangladesh">Bangladesh</option>
-                          <option value="Belarus">Belarus</option>
-                          <option value="Brazil">Brazil</option>
-                          <option value="Canada">Canada</option>
-                          <option value="China">China</option>
-                          <option value="France">France</option>
-                          <option value="Germany">Germany</option>
-                          <option value="India">India</option>
-                          <option value="Indonesia">Indonesia</option>
-                          <option value="Israel">Israel</option>
-                          <option value="Italy">Italy</option>
-                          <option value="Japan">Japan</option>
-                          <option value="Korea">Korea, Republic of</option>
-                          <option value="Mexico">Mexico</option>
-                          <option value="Philippines">Philippines</option>
-                          <option value="Russia">Russian Federation</option>
-                          <option value="South Africa">South Africa</option>
-                          <option value="Thailand">Thailand</option>
-                          <option value="Turkey">Turkey</option>
-                          <option value="Ukraine">Ukraine</option>
-                          <option value="United Arab Emirates">United Arab Emirates</option>
-                          <option value="United Kingdom">United Kingdom</option>
-                          <option value="United States">United States</option>
-                        </select>
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="user-role">User Role</label>
-                        <select id="user-role" class="form-select">
-                          <option value="subscriber">Subscriber</option>
-                          <option value="editor">Editor</option>
-                          <option value="maintainer">Maintainer</option>
-                          <option value="author">Author</option>
-                          <option value="admin">Admin</option>
-                        </select>
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="user-plan">Select Plan</label>
-                        <select id="user-plan" class="form-select">
-                          <option value="basic">Basic</option>
-                          <option value="enterprise">Enterprise</option>
-                          <option value="company">Company</option>
-                          <option value="team">Team</option>
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary me-3 data-submit">Submit</button>
-                      <button type="reset" class="btn btn-label-danger" data-bs-dismiss="offcanvas">Cancel</button>
-                    </form>
+                </div>
+              @elseif(request('producto_id'))
+                <!-- Producto no encontrado -->
+                <div class="card">
+                  <div class="card-body text-center py-5">
+                    <div class="d-flex flex-column align-items-center">
+                      <i class="ti ti-package-off ti-64px text-muted mb-3"></i>
+                      <h5 class="mb-2">Producto No Encontrado</h5>
+                      <p class="text-muted mb-4">No se encontró ningún producto con el ID: <strong>{{ request('producto_id') }}</strong></p>
+                      <a href="{{ route('productos.actualizar-por-id') }}" class="btn btn-warning">
+                        <i class="ti ti-search me-2"></i>Buscar Otro Producto
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
+              @else
+                <!-- Instrucciones iniciales -->
+                <div class="card">
+                  <div class="card-body text-center py-5">
+                    <div class="d-flex flex-column align-items-center">
+                      <i class="ti ti-search ti-64px text-muted mb-3"></i>
+                      <h5 class="mb-2">Actualizar Producto por ID</h5>
+                      <p class="text-muted mb-4">Ingrese el ID del producto que desea actualizar</p>
+                      <div class="alert alert-info d-inline-block" role="alert">
+                        <i class="ti ti-info-circle me-2"></i>
+                        <strong>Nota:</strong> Podrá modificar todos los datos del producto encontrado.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endif
             </div>
             <!-- / Content -->
 
@@ -2137,18 +2397,155 @@
 
     <!-- VentasFix Custom JS -->
     <script>
-        // Función para confirmar eliminación
-        function confirmarEliminar(id) {
-            if(confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-                // Aquí se implementaría la eliminación via AJAX o formulario
-                console.log('Eliminar usuario:', id);
-                alert('Funcionalidad de eliminación por implementar');
-            }
-        }
-        
-        // Configuración para silenciar advertencias de DataTables
         $(document).ready(function() {
+            // Configuración para silenciar advertencias de DataTables
             $.fn.dataTable.ext.errMode = 'none';
+            
+            // Función para calcular precio de venta automáticamente (19% IVA)
+            function calcularPrecioVenta() {
+                const precioNeto = parseFloat($('#precio_neto').val()) || 0;
+                if (precioNeto > 0) {
+                    const precioVenta = (precioNeto * 1.19).toFixed(2);
+                    $('#precio_venta').val(precioVenta);
+                } else {
+                    $('#precio_venta').val('');
+                }
+            }
+            
+            // Validar que solo se ingresen números enteros en campos de stock
+            function validarSoloNumeros(campo) {
+                campo.on('input', function() {
+                    let valor = $(this).val().replace(/[^0-9]/g, '');
+                    $(this).val(valor);
+                });
+                
+                campo.on('keypress', function(e) {
+                    if (!/[0-9]/.test(String.fromCharCode(e.which))) {
+                        e.preventDefault();
+                    }
+                });
+            }
+            
+            // Calcular precio de venta automáticamente al cambiar precio neto
+            $('#precio_neto').on('input', function() {
+                calcularPrecioVenta();
+                
+                const valor = parseFloat($(this).val()) || 0;
+                if (valor >= 0) {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                } else {
+                    $(this).removeClass('is-valid').addClass('is-invalid');
+                }
+            });
+            
+            // Validar campos de texto obligatorios
+            $('#nombre, #sku, #descripcion_corta, #descripcion_larga, #imagen_url').on('input', function() {
+                const valor = $(this).val().trim();
+                if (valor.length > 0) {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                } else {
+                    $(this).removeClass('is-valid').addClass('is-invalid');
+                }
+            });
+            
+            // Validar URL de imagen
+            $('#imagen_url').on('input', function() {
+                const valor = $(this).val().trim();
+                if (valor === '' || /^https?:\/\/.+/.test(valor)) {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                } else {
+                    $(this).removeClass('is-valid').addClass('is-invalid');
+                }
+            });
+            
+            // Aplicar validación de solo números a campos de stock
+            validarSoloNumeros($('#stock_actual'));
+            validarSoloNumeros($('#stock_minimo'));
+            
+            // Validar campos de stock
+            $('#stock_actual, #stock_minimo').on('input', function() {
+                const valor = parseInt($(this).val()) || 0;
+                if (valor >= 0) {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                } else {
+                    $(this).removeClass('is-valid').addClass('is-invalid');
+                }
+            });
+            
+            // Calcular precio de venta al cargar la página si hay precio neto
+            if ($('#precio_neto').val()) {
+                calcularPrecioVenta();
+            }
+            
+            // Validación del formulario antes del envío
+            $('#updateProductForm').on('submit', function(e) {
+                let valido = true;
+                
+                // Validar nombre
+                const nombre = $('#nombre').val().trim();
+                if (!nombre) {
+                    $('#nombre').addClass('is-invalid');
+                    valido = false;
+                }
+                
+                // Validar SKU
+                const sku = $('#sku').val().trim();
+                if (!sku) {
+                    $('#sku').addClass('is-invalid');
+                    valido = false;
+                }
+                
+                // Validar descripción corta
+                const descripcionCorta = $('#descripcion_corta').val().trim();
+                if (!descripcionCorta) {
+                    $('#descripcion_corta').addClass('is-invalid');
+                    valido = false;
+                }
+                
+                // Validar descripción larga
+                const descripcionLarga = $('#descripcion_larga').val().trim();
+                if (!descripcionLarga) {
+                    $('#descripcion_larga').addClass('is-invalid');
+                    valido = false;
+                }
+                
+                // Validar precio neto
+                const precioNeto = parseFloat($('#precio_neto').val()) || 0;
+                if (precioNeto <= 0) {
+                    $('#precio_neto').addClass('is-invalid');
+                    valido = false;
+                }
+                
+                // Validar stock actual
+                const stockActual = parseInt($('#stock_actual').val());
+                if (isNaN(stockActual) || stockActual < 0) {
+                    $('#stock_actual').addClass('is-invalid');
+                    valido = false;
+                }
+                
+                // Validar stock mínimo
+                const stockMinimo = parseInt($('#stock_minimo').val());
+                if (isNaN(stockMinimo) || stockMinimo < 0) {
+                    $('#stock_minimo').addClass('is-invalid');
+                    valido = false;
+                }
+                
+                // Validar URL de imagen (si se proporciona)
+                const imagenUrl = $('#imagen_url').val().trim();
+                if (imagenUrl && !/^https?:\/\/.+/.test(imagenUrl)) {
+                    $('#imagen_url').addClass('is-invalid');
+                    valido = false;
+                }
+                
+                if (!valido) {
+                    e.preventDefault();
+                    alert('Por favor, complete todos los campos obligatorios correctamente.');
+                    return false;
+                }
+                
+                // Deshabilitar el botón para evitar envíos múltiples
+                $('#btnActualizar').prop('disabled', true).html('<i class="ti ti-loader me-2"></i>Actualizando...');
+            });
         });
     </script>
   </body>

@@ -263,6 +263,126 @@
                 <div data-i18n="Email">Email</div>
               </a>
             </li>
+            <li class="menu-item active open">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Users">Users</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">Buscar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.create') }}" class="menu-link">
+                    <div data-i18n="Add User">Agregar Usuario</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="{{ route('usuarios.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  </a>
+                </li>                
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-user-view-account.html" class="menu-link">
+                        <div data-i18n="Account">Account</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-security.html" class="menu-link">
+                        <div data-i18n="Security">Security</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-billing.html" class="menu-link">
+                        <div data-i18n="Billing & Plans">Billing & Plans</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-notifications.html" class="menu-link">
+                        <div data-i18n="Notifications">Notifications</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-connections.html" class="menu-link">
+                        <div data-i18n="Connections">Connections</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-package"></i>
+                <div data-i18n="Products">Products</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('productos.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link" onclick="buscarProductoPorId()">
+                    <div data-i18n="List by ID">List by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.create') }}" class="menu-link">
+                    <div data-i18n="Add Product">Add Product</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link" onclick="actualizarProductoPorId()">
+                    <div data-i18n="Update by ID">Update by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link" onclick="eliminarProductoPorId()">
+                    <div data-i18n="Delete by ID">Delete by ID</div>
+                  </a>
+                </li>                
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="verProductoPorId()">
+                        <div data-i18n="Details">Details</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link">
+                        <div data-i18n="Inventory">Inventory</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link">
+                        <div data-i18n="History">History</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
             <li class="menu-item">
               <a href="app-chat.html" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-messages"></i>
@@ -489,72 +609,6 @@
                   <a href="app-invoice-add.html" class="menu-link">
                     <div data-i18n="Add">Add</div>
                   </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item active open">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-users"></i>
-                <div data-i18n="Users">Users</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.index') }}" class="menu-link">
-                    <div data-i18n="List">List</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.list-by-id') }}" class="menu-link">
-                    <div data-i18n="List by ID">Buscar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.create') }}" class="menu-link">
-                    <div data-i18n="Add User">Agregar Usuario</div>
-                  </a>
-                </li>
-                <li class="menu-item active">
-                  <a href="{{ route('usuarios.actualizar-por-id') }}" class="menu-link">
-                    <div data-i18n="Update by ID">Actualizar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
-                    <div data-i18n="Delete by ID">Eliminar por ID</div>
-                  </a>
-                </li>
-
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="View">View</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-user-view-account.html" class="menu-link">
-                        <div data-i18n="Account">Account</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-security.html" class="menu-link">
-                        <div data-i18n="Security">Security</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-billing.html" class="menu-link">
-                        <div data-i18n="Billing & Plans">Billing & Plans</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Notifications</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
-                      </a>
-                    </li>
-                  </ul>
                 </li>
               </ul>
             </li>
@@ -1795,7 +1849,23 @@
 
               <!-- VentasFix Statistics Cards -->
               
-              @if(isset($mensaje) && !empty($mensaje))
+              @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="ti ti-check-circle me-2"></i>
+                  {{ session('success') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+
+              @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <i class="ti ti-alert-circle me-2"></i>
+                  {{ session('error') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+
+              @if(isset($mensaje) && !empty($mensaje) && !session('success') && !session('error'))
                 <div class="alert alert-{{ isset($usuario) && $usuario ? 'info' : 'warning' }} alert-dismissible fade show" role="alert">
                   <i class="ti ti-{{ isset($usuario) && $usuario ? 'info-circle' : 'alert-circle' }} me-2"></i>
                   {{ $mensaje }}
@@ -1858,23 +1928,30 @@
                                     <label for="rut" class="form-label">RUT <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('rut') is-invalid @enderror" 
                                            id="rut" name="rut" value="{{ old('rut', $usuario->rut) }}" 
-                                           placeholder="12345678-9" required>
+                                           placeholder="12345678-9 o 12.345.678-9" required>
                                     <div class="invalid-feedback d-block" id="rut-error"></div>
                                     @error('rut')
                                       <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
+                                    <div class="form-text">
+                                      <i class="ti ti-info-circle me-1"></i>Puede usar puntos (12.345.678-9) o sin puntos (12345678-9)
+                                    </div>
                                   </div>
                                 </div>
                                 
                                 <div class="col-md-6">
                                   <div class="mb-3">
-                                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                    <label for="email" class="form-label">Email <span class="text-danger">*</span> <small class="text-muted">(Generado automáticamente)</small></label>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror" 
                                            id="email" name="email" value="{{ old('email', $usuario->email) }}" 
-                                           placeholder="usuario@example.com" required>
+                                           placeholder="nombre.apellido@ventasfix.cl" required readonly
+                                           style="background-color: #f8f9fa; cursor: not-allowed;">
                                     @error('email')
                                       <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
+                                    <div class="form-text">
+                                      <i class="ti ti-info-circle me-1"></i>El email se genera automáticamente con formato: nombre.apellido@ventasfix.cl
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -1885,11 +1962,16 @@
                                     <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('nombre') is-invalid @enderror" 
                                            id="nombre" name="nombre" value="{{ old('nombre', $usuario->nombre) }}" 
-                                           placeholder="Ingrese nombre" required>
-                                    <div class="invalid-feedback d-block" id="nombre-error"></div>
+                                           placeholder="Solo letras, sin espacios en blanco" required
+                                           pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+$"
+                                           title="Solo se permiten letras, no espacios en blanco">
+                                    <div class="invalid-feedback d-block" id="nombre-error" style="display: none;"></div>
                                     @error('nombre')
                                       <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
+                                    <div class="form-text">
+                                      <i class="ti ti-info-circle me-1"></i>Solo letras, no espacios en blanco ni números
+                                    </div>
                                   </div>
                                 </div>
                                 
@@ -1898,8 +1980,10 @@
                                     <label for="apellido" class="form-label">Apellido <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('apellido') is-invalid @enderror" 
                                            id="apellido" name="apellido" value="{{ old('apellido', $usuario->apellido) }}" 
-                                           placeholder="Ingrese apellido" required>
-                                    <div class="invalid-feedback d-block" id="apellido-error"></div>
+                                           placeholder="Solo letras, sin espacios en blanco" required
+                                           pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+$"
+                                           title="Solo se permiten letras, no espacios en blanco">
+                                    <div class="invalid-feedback d-block" id="apellido-error" style="display: none;"></div>
                                     @error('apellido')
                                       <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
@@ -2067,11 +2151,79 @@
                 return dv === dvCalculado;
             }
             
-            // Función para validar solo letras
+            // Función para validar solo letras (SIN ESPACIOS)
             function validarSoloLetras(texto) {
-                const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+                const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+$/; // Sin espacios
                 return regex.test(texto.trim()) && texto.trim().length > 0;
             }
+            
+            // Función para generar email automáticamente
+            function generarEmail() {
+                const nombre = $('#nombre').val().trim();
+                const apellido = $('#apellido').val().trim();
+                
+                if (nombre && apellido && validarSoloLetras(nombre) && validarSoloLetras(apellido)) {
+                    const nombreLimpio = nombre.toLowerCase()
+                        .replace(/[áàäâ]/g, 'a')
+                        .replace(/[éèëê]/g, 'e')
+                        .replace(/[íìïî]/g, 'i')
+                        .replace(/[óòöô]/g, 'o')
+                        .replace(/[úùüû]/g, 'u')
+                        .replace(/[ñ]/g, 'n');
+                    
+                    const apellidoLimpio = apellido.toLowerCase()
+                        .replace(/[áàäâ]/g, 'a')
+                        .replace(/[éèëê]/g, 'e')
+                        .replace(/[íìïî]/g, 'i')
+                        .replace(/[óòöô]/g, 'o')
+                        .replace(/[úùüû]/g, 'u')
+                        .replace(/[ñ]/g, 'n');
+                    
+                    const emailGenerado = nombreLimpio + '.' + apellidoLimpio + '@ventasfix.cl';
+                    $('#email').val(emailGenerado);
+                }
+            }
+            
+            // Filtrar caracteres mientras se escribe (solo letras, sin espacios)
+            $('#nombre, #apellido').on('input', function() {
+                // Filtrar caracteres no permitidos
+                let valor = $(this).val().replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]/g, '');
+                $(this).val(valor);
+                
+                const fieldName = $(this).attr('name');
+                const errorDiv = $('#' + fieldName + '-error');
+                
+                if (valor === '') {
+                    $(this).removeClass('is-valid is-invalid').addClass('is-invalid');
+                    errorDiv.text('Este campo es obligatorio.').show();
+                } else if (validarSoloLetras(valor)) {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                    errorDiv.hide();
+                    generarEmail(); // Regenerar email cuando cambien nombre o apellido
+                } else {
+                    $(this).removeClass('is-valid').addClass('is-invalid');
+                    errorDiv.text('Solo se permiten letras, sin espacios ni números.').show();
+                }
+            });
+            
+            // Prevenir espacios y caracteres no válidos al presionar teclas
+            $('#nombre, #apellido').on('keypress', function(e) {
+                const char = String.fromCharCode(e.which);
+                const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]$/;
+                
+                if (!regex.test(char)) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Prevenir pegar contenido con espacios o caracteres inválidos
+            $('#nombre, #apellido').on('paste', function(e) {
+                setTimeout(() => {
+                    let valor = $(this).val().replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]/g, '');
+                    $(this).val(valor).trigger('input');
+                }, 1);
+            });
             
             // Formatear RUT mientras se escribe
             $('#rut').on('input', function() {
@@ -2084,7 +2236,7 @@
                 $(this).val(valor);
                 
                 // Validar RUT
-                if (valor.length >= 9) {
+                if (valor.length >= 8) {  // Cambiado de 9 a 8 para aceptar RUTs más cortos
                     if (validarRutChileno(valor)) {
                         $(this).removeClass('is-invalid').addClass('is-valid');
                         $('#rut-error').text('');
@@ -2095,24 +2247,6 @@
                 } else {
                     $(this).removeClass('is-valid is-invalid');
                     $('#rut-error').text('');
-                }
-            });
-            
-            // Validar nombre y apellido (solo letras)
-            $('#nombre, #apellido').on('input', function() {
-                const valor = $(this).val().trim();
-                const fieldName = $(this).attr('name');
-                const errorDiv = $('#' + fieldName + '-error');
-                
-                if (valor === '') {
-                    $(this).removeClass('is-valid is-invalid');
-                    errorDiv.text('');
-                } else if (validarSoloLetras(valor)) {
-                    $(this).removeClass('is-invalid').addClass('is-valid');
-                    errorDiv.text('');
-                } else {
-                    $(this).removeClass('is-valid').addClass('is-invalid');
-                    errorDiv.text('Solo se permiten letras y espacios.');
                 }
             });
             
@@ -2132,7 +2266,7 @@
                 const nombre = $('#nombre').val().trim();
                 if (!nombre || !validarSoloLetras(nombre)) {
                     $('#nombre').addClass('is-invalid');
-                    $('#nombre-error').text('El nombre es obligatorio y solo debe contener letras.');
+                    $('#nombre-error').text('El nombre es obligatorio y solo debe contener letras, sin espacios.').show();
                     valido = false;
                 }
                 
@@ -2140,11 +2274,14 @@
                 const apellido = $('#apellido').val().trim();
                 if (!apellido || !validarSoloLetras(apellido)) {
                     $('#apellido').addClass('is-invalid');
-                    $('#apellido-error').text('El apellido es obligatorio y solo debe contener letras.');
+                    $('#apellido-error').text('El apellido es obligatorio y solo debe contener letras, sin espacios.').show();
                     valido = false;
                 }
                 
-                // Validar email
+                // Generar email automáticamente antes del envío
+                if (nombre && apellido) {
+                    generarEmail();
+                }
                 const email = $('#email').val().trim();
                 if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                     $('#email').addClass('is-invalid');

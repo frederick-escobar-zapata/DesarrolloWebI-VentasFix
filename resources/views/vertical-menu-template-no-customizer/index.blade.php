@@ -247,6 +247,104 @@
               </a>
             </li>
             <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Users">Users</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">Buscar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.create') }}" class="menu-link">
+                    <div data-i18n="Add User">Agregar Usuario</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  </a>
+                </li>                
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-user-view-account.html" class="menu-link">
+                        <div data-i18n="Account">Account</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-security.html" class="menu-link">
+                        <div data-i18n="Security">Security</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-billing.html" class="menu-link">
+                        <div data-i18n="Billing & Plans">Billing & Plans</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-notifications.html" class="menu-link">
+                        <div data-i18n="Notifications">Notifications</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-connections.html" class="menu-link">
+                        <div data-i18n="Connections">Connections</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-package"></i>
+                <div data-i18n="Products">Products</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('productos.index') }}" class="menu-link">
+                    <div data-i18n="List">Listar Todos</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">Buscar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.create') }}" class="menu-link">
+                    <div data-i18n="Add Product">Crear Producto</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
               <a href="app-chat.html" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-messages"></i>
                 <div data-i18n="Chat">Chat</div>
@@ -472,71 +570,6 @@
                   <a href="app-invoice-add.html" class="menu-link">
                     <div data-i18n="Add">Add</div>
                   </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-users"></i>
-                <div data-i18n="Users">Users</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.index') }}" class="menu-link">
-                    <div data-i18n="List">List</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.list-by-id') }}" class="menu-link">
-                    <div data-i18n="List by ID">Buscar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.create') }}" class="menu-link">
-                    <div data-i18n="Add User">Agregar Usuario</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.actualizar-por-id') }}" class="menu-link">
-                    <div data-i18n="Update by ID">Actualizar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
-                    <div data-i18n="Delete by ID">Eliminar por ID</div>
-                  </a>
-                </li>                
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="View">View</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-user-view-account.html" class="menu-link">
-                        <div data-i18n="Account">Account</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-security.html" class="menu-link">
-                        <div data-i18n="Security">Security</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-billing.html" class="menu-link">
-                        <div data-i18n="Billing & Plans">Billing & Plans</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Notifications</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
-                      </a>
-                    </li>
-                  </ul>
                 </li>
               </ul>
             </li>

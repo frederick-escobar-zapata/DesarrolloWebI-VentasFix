@@ -1,11 +1,11 @@
 <!doctype html>
 
 <html
-  lang="es"
+  lang="en"
   class="light-style layout-navbar-fixed layout-menu-fixed layout-compact"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="{{ asset('assets/') }}"
+  data-assets-path="../../assets/"
   data-template="vertical-menu-template-no-customizer"
   data-style="light">
   <head>
@@ -14,9 +14,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>{{ $titulo ?? 'Lista de Usuarios' }} - VentasFix</title>
+    <title>{{ $titulo ?? 'Lista de Productos' }} - VentasFix</title>
 
-    <meta name="description" content="{{ $subtitulo ?? 'Gestión de usuarios del sistema VentasFix' }}" />
+    <meta name="description" content="" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
@@ -49,7 +49,6 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/@form-validation/form-validation.css') }}" />
 
     <!-- Page CSS -->
 
@@ -96,7 +95,7 @@
                     fill="#7367F0" />
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bold">VentasFix</span>
+              <span class="app-brand-text demo menu-text fw-bold">Vuexy</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -117,7 +116,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="index.html" class="menu-link">
+                  <a href="{{ route('dashboard') }}" class="menu-link">
                     <div data-i18n="Analytics">Analytics</div>
                   </a>
                 </li>
@@ -245,126 +244,6 @@
                 <div data-i18n="Email">Email</div>
               </a>
             </li>
-            <li class="menu-item active open">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-users"></i>
-                <div data-i18n="Users">Users</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item active">
-                  <a href="{{ route('usuarios.index') }}" class="menu-link">
-                    <div data-i18n="List">List</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.list-by-id') }}" class="menu-link">
-                    <div data-i18n="List by ID">Buscar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.create') }}" class="menu-link">
-                    <div data-i18n="Add User">Agregar Usuario</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.actualizar-por-id') }}" class="menu-link">
-                    <div data-i18n="Update by ID">Actualizar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
-                    <div data-i18n="Delete by ID">Eliminar por ID</div>
-                  </a>
-                </li>                
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="View">View</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-user-view-account.html" class="menu-link">
-                        <div data-i18n="Account">Account</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-security.html" class="menu-link">
-                        <div data-i18n="Security">Security</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-billing.html" class="menu-link">
-                        <div data-i18n="Billing & Plans">Billing & Plans</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Notifications</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-package"></i>
-                <div data-i18n="Products">Products</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{{ route('productos.index') }}" class="menu-link">
-                    <div data-i18n="List">List</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link" onclick="buscarProductoPorId()">
-                    <div data-i18n="List by ID">List by ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('productos.create') }}" class="menu-link">
-                    <div data-i18n="Add Product">Add Product</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link" onclick="actualizarProductoPorId()">
-                    <div data-i18n="Update by ID">Update by ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link" onclick="eliminarProductoPorId()">
-                    <div data-i18n="Delete by ID">Delete by ID</div>
-                  </a>
-                </li>                
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="View">View</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link" onclick="verProductoPorId()">
-                        <div data-i18n="Details">Details</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link">
-                        <div data-i18n="Inventory">Inventory</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link">
-                        <div data-i18n="History">History</div>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
             <li class="menu-item">
               <a href="app-chat.html" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-messages"></i>
@@ -384,7 +263,7 @@
               </a>
             </li>
             <!-- e-commerce-app menu start -->
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-shopping-cart"></i>
                 <div data-i18n="eCommerce">eCommerce</div>
@@ -395,18 +274,18 @@
                     <div data-i18n="Dashboard">Dashboard</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active open">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <div data-i18n="Products">Products</div>
                   </a>
                   <ul class="menu-sub">
-                    <li class="menu-item">
+                    <li class="menu-item active">
                       <a href="{{ route('productos.index') }}" class="menu-link">
                         <div data-i18n="Product List">Product List</div>
                       </a>
                     </li>
                     <li class="menu-item">
-                      <a href="app-ecommerce-product-add.html" class="menu-link">
+                      <a href="{{ route('productos.create') }}" class="menu-link">
                         <div data-i18n="Add Product">Add Product</div>
                       </a>
                     </li>
@@ -591,6 +470,52 @@
                   <a href="app-invoice-add.html" class="menu-link">
                     <div data-i18n="Add">Add</div>
                   </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Users">Users</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-user-view-account.html" class="menu-link">
+                        <div data-i18n="Account">Account</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-security.html" class="menu-link">
+                        <div data-i18n="Security">Security</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-billing.html" class="menu-link">
+                        <div data-i18n="Billing & Plans">Billing & Plans</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-notifications.html" class="menu-link">
+                        <div data-i18n="Notifications">Notifications</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-connections.html" class="menu-link">
+                        <div data-i18n="Connections">Connections</div>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
@@ -1405,7 +1330,7 @@
                           <span class="dropdown-shortcuts-icon rounded-circle mb-3">
                             <i class="ti ti-user ti-26px text-heading"></i>
                           </span>
-                          <a href="app-user-list.html" class="stretched-link">User App</a>
+                          <a href="{{ route('usuarios.index') }}" class="stretched-link">User App</a>
                           <small>Manage Users</small>
                         </div>
                         <div class="dropdown-shortcuts-item col">
@@ -1421,7 +1346,7 @@
                           <span class="dropdown-shortcuts-icon rounded-circle mb-3">
                             <i class="ti ti-device-desktop-analytics ti-26px text-heading"></i>
                           </span>
-                          <a href="index.html" class="stretched-link">Dashboard</a>
+                          <a href="{{ route('dashboard') }}" class="stretched-link">Dashboard</a>
                           <small>User Dashboard</small>
                         </div>
                         <div class="dropdown-shortcuts-item col">
@@ -1801,86 +1726,73 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <!-- VentasFix Statistics Cards -->
-              <div class="row g-6 mb-6">
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Total Usuarios</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ count($usuarios) }}</h4>
-                            <p class="text-success mb-0">(Activos)</p>
+              <!-- Product List Widget -->
+              <div class="card mb-6">
+                <div class="card-widget-separator-wrapper">
+                  <div class="card-body card-widget-separator">
+                    <div class="row gy-4 gy-sm-1">
+                      <div class="col-sm-6 col-lg-3">
+                        <div
+                          class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-4 pb-sm-0">
+                          <div>
+                            <p class="mb-1">Total Productos</p>
+                            <h4 class="mb-1">{{ $estadisticas['total'] ?? 0 }}</h4>
+                            <p class="mb-0">
+                              <span class="me-2">En inventario</span><span class="badge bg-label-success">+{{ $estadisticas['activos'] ?? 0 }}</span>
+                            </p>
                           </div>
-                          <small class="mb-0">Usuarios registrados</small>
+                          <span class="avatar me-sm-6">
+                            <span class="avatar-initial rounded"
+                              ><i class="ti-28px ti ti-package text-heading"></i
+                            ></span>
+                          </span>
                         </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-primary">
-                            <i class="ti ti-users ti-26px"></i>
+                        <hr class="d-none d-sm-block d-lg-none me-6" />
+                      </div>
+                      <div class="col-sm-6 col-lg-3">
+                        <div
+                          class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-4 pb-sm-0">
+                          <div>
+                            <p class="mb-1">Productos Activos</p>
+                            <h4 class="mb-1">{{ $estadisticas['activos'] ?? 0 }}</h4>
+                            <p class="mb-0">
+                              <span class="me-2">Disponibles</span><span class="badge bg-label-success">Activos</span>
+                            </p>
+                          </div>
+                          <span class="avatar p-2 me-lg-6">
+                            <span class="avatar-initial rounded"
+                              ><i class="ti-28px ti ti-check text-heading"></i
+                            ></span>
+                          </span>
+                        </div>
+                        <hr class="d-none d-sm-block d-lg-none" />
+                      </div>
+                      <div class="col-sm-6 col-lg-3">
+                        <div
+                          class="d-flex justify-content-between align-items-start border-end pb-4 pb-sm-0 card-widget-3">
+                          <div>
+                            <p class="mb-1">Productos Inactivos</p>
+                            <h4 class="mb-1">{{ $estadisticas['inactivos'] ?? 0 }}</h4>
+                            <p class="mb-0">Sin disponibilidad</p>
+                          </div>
+                          <span class="avatar p-2 me-sm-6">
+                            <span class="avatar-initial rounded"><i class="ti-28px ti ti-x text-heading"></i></span>
                           </span>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Total Usuarios</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ $usuarios->count() }}</h4>
-                            <p class="text-info mb-0">(Total)</p>
+                      <div class="col-sm-6 col-lg-3">
+                        <div class="d-flex justify-content-between align-items-start">
+                          <div>
+                            <p class="mb-1">Último Mes</p>
+                            <h4 class="mb-1">{{ $estadisticas['ultimo_mes'] ?? 0 }}</h4>
+                            <p class="mb-0">
+                              <span class="me-2">Nuevos productos</span><span class="badge bg-label-info">Recientes</span>
+                            </p>
                           </div>
-                          <small class="mb-0">Total de usuarios registrados</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-info">
-                            <i class="ti ti-user-shield ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Usuarios Activos</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">{{ $usuarios->whereNotNull('email_verified_at')->count() }}</h4>
-                            <p class="text-success mb-0">(Verificados)</p>
-                          </div>
-                          <small class="mb-0">Usuarios con email verificado</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-success">
-                            <i class="ti ti-user-check ti-26px"></i>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-start justify-content-between">
-                        <div class="content-left">
-                          <span class="text-heading">Estado Sistema</span>
-                          <div class="d-flex align-items-center my-1">
-                            <h4 class="mb-0 me-2">Online</h4>
-                            <p class="text-success mb-0">(Activo)</p>
-                          </div>
-                          <small class="mb-0">Sistema VentasFix</small>
-                        </div>
-                        <div class="avatar">
-                          <span class="avatar-initial rounded bg-label-warning">
-                            <i class="ti ti-server ti-26px"></i>
+                          <span class="avatar p-2">
+                            <span class="avatar-initial rounded"
+                              ><i class="ti-28px ti ti-plus text-heading"></i
+                            ></span>
                           </span>
                         </div>
                       </div>
@@ -1888,169 +1800,94 @@
                   </div>
                 </div>
               </div>
-              
-              <!-- Users List Table -->
+
+              <!-- Product List Table -->
               <div class="card">
-                <div class="card-header border-bottom">
-                  <h5 class="card-title mb-0">{{ $titulo ?? 'Lista de Usuarios' }}</h5>
-                  <p class="card-text text-muted mt-1">{{ $subtitulo ?? 'Gestión de usuarios del sistema VentasFix' }}</p>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="card-title mb-0">Lista de Productos</h5>
+                  <div class="d-flex gap-3">
+                    <a href="{{ route('productos.create') }}" class="btn btn-primary">
+                      <i class="ti ti-plus me-1"></i>Agregar Producto
+                    </a>
+                  </div>
                 </div>
-                <div class="card-datatable table-responsive">
-                  <table class="table table-bordered">
-                    <thead class="table-light">
-                      <tr>
-                        <th>ID</th>
-                        <th>RUT</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Fecha Creación</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @forelse($usuarios as $usuario)
-                        <tr>
-                          <td>{{ $usuario->id }}</td>
-                          <td>{{ $usuario->rut }}</td>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="avatar avatar-sm me-3">
-                                <span class="avatar-initial rounded-circle bg-label-primary">
-                                  {{ strtoupper(substr($usuario->nombre, 0, 1)) }}
+                
+                <div class="card-body">
+                  @if($productos && $productos->count() > 0)
+                    <div class="table-responsive">
+                      <table class="table table-hover">
+                        <thead class="table-light">
+                          <tr>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Fecha Creación</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($productos as $producto)
+                            <tr>
+                              <td>{{ $producto->id }}</td>
+                              <td>
+                                <div class="d-flex align-items-center">
+                                  <div class="avatar avatar-sm me-3">
+                                    <span class="avatar-initial rounded bg-label-primary">
+                                      <i class="ti ti-package"></i>
+                                    </span>
+                                  </div>
+                                  <div>
+                                    <h6 class="mb-0">{{ $producto->nombre }}</h6>
+                                    <small class="text-muted">SKU: {{ $producto->sku ?? 'Sin SKU' }}</small>
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                <span class="text-truncate" style="max-width: 200px;" title="{{ $producto->descripcion_corta }}">
+                                  {{ Str::limit($producto->descripcion_corta, 50) }}
                                 </span>
-                              </div>
-                              <div>
-                                <h6 class="mb-0">{{ $usuario->nombre }}</h6>
-                              </div>
-                            </div>
-                          </td>
-                          <td>{{ $usuario->apellido }}</td>
-                          <td>{{ $usuario->email }}</td>
-                          <td>{{ $usuario->created_at->format('d/m/Y H:i') }}</td>
-                        </tr>
-                      @empty
-                        <tr>
-                          <td colspan="6" class="text-center py-4">
-                            <div class="d-flex flex-column align-items-center">
-                              <i class="ti ti-users-off ti-48px text-muted mb-2"></i>
-                              <h6 class="mb-1">No hay usuarios</h6>
-                              <p class="text-muted">No se encontraron usuarios en el sistema</p>
-                            </div>
-                          </td>
-                        </tr>
-                      @endforelse
-                    </tbody>
-                  </table>
-                </div>
-                <!-- Offcanvas to add new user -->
-                <div
-                  class="offcanvas offcanvas-end"
-                  tabindex="-1"
-                  id="offcanvasAddUser"
-                  aria-labelledby="offcanvasAddUserLabel">
-                  <div class="offcanvas-header border-bottom">
-                    <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add User</h5>
-                    <button
-                      type="button"
-                      class="btn-close text-reset"
-                      data-bs-dismiss="offcanvas"
-                      aria-label="Close"></button>
-                  </div>
-                  <div class="offcanvas-body mx-0 flex-grow-0 p-6 h-100">
-                    <form class="add-new-user pt-0" id="addNewUserForm" onsubmit="return false">
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="add-user-fullname"
-                          placeholder="John Doe"
-                          name="userFullname"
-                          aria-label="John Doe" />
+                              </td>
+                              <td>
+                                <span class="fw-medium">${{ number_format($producto->precio_venta, 2) }}</span>
+                              </td>
+                              <td>
+                                @if($producto->stock_actual > 10)
+                                  <span class="badge bg-success">{{ $producto->stock_actual }} unidades</span>
+                                @elseif($producto->stock_actual > 0)
+                                  <span class="badge bg-warning">{{ $producto->stock_actual }} unidades</span>
+                                @else
+                                  <span class="badge bg-danger">Sin stock</span>
+                                @endif
+                              </td>
+                              <td>{{ $producto->created_at->format('d/m/Y H:i') }}</td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {{-- Paginación si es necesaria --}}
+                    @if($productos instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                      <div class="d-flex justify-content-center mt-4">
+                        {{ $productos->links() }}
                       </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-email">Email</label>
-                        <input
-                          type="text"
-                          id="add-user-email"
-                          class="form-control"
-                          placeholder="john.doe@example.com"
-                          aria-label="john.doe@example.com"
-                          name="userEmail" />
+                    @endif
+
+                  @else
+                    <div class="text-center py-5">
+                      <div class="avatar avatar-xl mx-auto mb-3">
+                        <span class="avatar-initial rounded bg-label-secondary">
+                          <i class="ti ti-package ti-lg"></i>
+                        </span>
                       </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-contact">Contact</label>
-                        <input
-                          type="text"
-                          id="add-user-contact"
-                          class="form-control phone-mask"
-                          placeholder="+1 (609) 988-44-11"
-                          aria-label="john.doe@example.com"
-                          name="userContact" />
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="add-user-company">Company</label>
-                        <input
-                          type="text"
-                          id="add-user-company"
-                          class="form-control"
-                          placeholder="Web Developer"
-                          aria-label="jdoe1"
-                          name="companyName" />
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="country">Country</label>
-                        <select id="country" class="select2 form-select">
-                          <option value="">Select</option>
-                          <option value="Australia">Australia</option>
-                          <option value="Bangladesh">Bangladesh</option>
-                          <option value="Belarus">Belarus</option>
-                          <option value="Brazil">Brazil</option>
-                          <option value="Canada">Canada</option>
-                          <option value="China">China</option>
-                          <option value="France">France</option>
-                          <option value="Germany">Germany</option>
-                          <option value="India">India</option>
-                          <option value="Indonesia">Indonesia</option>
-                          <option value="Israel">Israel</option>
-                          <option value="Italy">Italy</option>
-                          <option value="Japan">Japan</option>
-                          <option value="Korea">Korea, Republic of</option>
-                          <option value="Mexico">Mexico</option>
-                          <option value="Philippines">Philippines</option>
-                          <option value="Russia">Russian Federation</option>
-                          <option value="South Africa">South Africa</option>
-                          <option value="Thailand">Thailand</option>
-                          <option value="Turkey">Turkey</option>
-                          <option value="Ukraine">Ukraine</option>
-                          <option value="United Arab Emirates">United Arab Emirates</option>
-                          <option value="United Kingdom">United Kingdom</option>
-                          <option value="United States">United States</option>
-                        </select>
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="user-role">User Role</label>
-                        <select id="user-role" class="form-select">
-                          <option value="subscriber">Subscriber</option>
-                          <option value="editor">Editor</option>
-                          <option value="maintainer">Maintainer</option>
-                          <option value="author">Author</option>
-                          <option value="admin">Admin</option>
-                        </select>
-                      </div>
-                      <div class="mb-6">
-                        <label class="form-label" for="user-plan">Select Plan</label>
-                        <select id="user-plan" class="form-select">
-                          <option value="basic">Basic</option>
-                          <option value="enterprise">Enterprise</option>
-                          <option value="company">Company</option>
-                          <option value="team">Team</option>
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary me-3 data-submit">Submit</button>
-                      <button type="reset" class="btn btn-label-danger" data-bs-dismiss="offcanvas">Cancel</button>
-                    </form>
-                  </div>
+                      <h5 class="mb-2">No hay productos registrados</h5>
+                      <p class="text-muted mb-4">Comienza agregando tu primer producto al sistema</p>
+                      <a href="{{ route('productos.create') }}" class="btn btn-primary">
+                        <i class="ti ti-plus me-1"></i>Agregar Primer Producto
+                      </a>
+                    </div>
+                  @endif
                 </div>
               </div>
             </div>
@@ -2123,33 +1960,13 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/@form-validation/popular.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/@form-validation/bootstrap5.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/@form-validation/auto-focus.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/cleavejs/cleave.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/cleavejs/cleave-phone.js') }}"></script>
 
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
-    <!-- VentasFix Custom JS -->
-    <script>
-        // Función para confirmar eliminación
-        function confirmarEliminar(id) {
-            if(confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-                // Aquí se implementaría la eliminación via AJAX o formulario
-                console.log('Eliminar usuario:', id);
-                alert('Funcionalidad de eliminación por implementar');
-            }
-        }
-        
-        // Configuración para silenciar advertencias de DataTables
-        $(document).ready(function() {
-            $.fn.dataTable.ext.errMode = 'none';
-        });
-    </script>
+    <!-- Custom Scripts for VentasFix -->
+   
   </body>
 </html>

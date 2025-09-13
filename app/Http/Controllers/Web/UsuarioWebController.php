@@ -130,35 +130,63 @@ class UsuarioWebController extends Controller
     {
         try {
             // Primero limpiamos los espacios en blanco de los campos de texto
-            // para evitar datos sucios en la base de datos
+            // y normalizamos el RUT quitando puntos
+            // Normalizar RUT - quitar puntos y mantener guión
+            $rutOriginal = $request->get('rut') ? trim($request->get('rut')) : null;
+            $rutNormalizado = null;
+            if ($rutOriginal) {
+                // Remover puntos del RUT pero mantener el guión
+                $rutNormalizado = str_replace('.', '', $rutOriginal);
+            }
+            
             $request->merge([
                 'nombre' => trim($request->get('nombre')),
                 'apellido' => trim($request->get('apellido')),
-                'rut' => $request->get('rut') ? trim($request->get('rut')) : null
+                'rut' => $rutNormalizado
             ]);
 
             // Validamos los datos del formulario con reglas específicas
             $request->validate([
-                'nombre' => 'required|string|max:100|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/|not_regex:/^\s+$/|not_regex:/^\s*$/',
-                'apellido' => 'required|string|max:100|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/|not_regex:/^\s+$/|not_regex:/^\s*$/',
-                'email' => 'required|email|unique:users,email',
-                'rut' => 'nullable|string|max:12|regex:/^[0-9]{7,8}-[0-9kK]{1}$/|unique:users,rut',
+                'nombre' => 'required|string|max:100|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+$/|not_regex:/^\s*$/',
+                'apellido' => 'required|string|max:100|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+$/|not_regex:/^\s*$/',
+                'email' => 'required|email|ends_with:@ventasfix.cl|unique:users,email',
+                'rut' => 'required|string|max:15|regex:/^[0-9]{7,9}-[0-9kK]{1}$/|unique:users,rut',
                 'password' => 'required|string|min:6'
             ], [
                 // Mensajes personalizados para una mejor experiencia de usuario
-                'nombre.regex' => 'El nombre solo puede contener letras y espacios.',
+                'nombre.regex' => 'El nombre solo puede contener letras, sin espacios ni números.',
                 'nombre.not_regex' => 'El nombre no puede estar vacío o contener solo espacios.',
-                'apellido.regex' => 'El apellido solo puede contener letras y espacios.',
+                'apellido.regex' => 'El apellido solo puede contener letras, sin espacios ni números.',
                 'apellido.not_regex' => 'El apellido no puede estar vacío o contener solo espacios.',
-                'rut.regex' => 'El RUT debe tener formato válido (ej: 12345678-9).',
-                'rut.unique' => 'Este RUT ya está registrado en el sistema.'
+                'email.ends_with' => 'El email debe terminar en @ventasfix.cl',
+                'rut.regex' => 'El RUT debe tener formato válido (ej: 12345678-9 o 24269861-4). Los puntos se normalizarán automáticamente.',
+                'rut.unique' => 'Este RUT ya está registrado en el sistema.',
+                'rut.required' => 'El RUT es obligatorio.'
             ]);
+
+            // Generar email automáticamente basado en nombre y apellido
+            $nombreLimpio = strtolower($request->get('nombre'));
+            $apellidoLimpio = strtolower($request->get('apellido'));
+            
+            // Limpiar caracteres especiales para el email
+            $nombreEmail = str_replace(
+                ['á','é','í','ó','ú','ñ','ü'], 
+                ['a','e','i','o','u','n','u'], 
+                $nombreLimpio
+            );
+            $apellidoEmail = str_replace(
+                ['á','é','í','ó','ú','ñ','ü'], 
+                ['a','e','i','o','u','n','u'], 
+                $apellidoLimpio
+            );
+            
+            $emailGenerado = $nombreEmail . '.' . $apellidoEmail . '@ventasfix.cl';
 
             // Preparamos los datos para crear el usuario
             $datosUsuario = [
                 'nombre' => $request->get('nombre'),
                 'apellido' => $request->get('apellido'),
-                'email' => $request->get('email'),
+                'email' => $emailGenerado, // Email generado automáticamente
                 'rut' => $request->get('rut'),
                 'password' => $request->get('password')
             ];
@@ -259,16 +287,20 @@ class UsuarioWebController extends Controller
             $mensaje = '';
             $usuario = null;
             
-            // Verificamos si se envió un ID para buscar
-            if ($request->filled('usuario_id')) {
-                $usuarioId = $request->get('usuario_id');
+            // Verificamos si se envió un ID para buscar o si viene de un redirect de éxito
+            if ($request->filled('usuario_id') || session('usuario_id')) {
+                $usuarioId = $request->get('usuario_id') ?? session('usuario_id');
                 
                 // Buscamos el usuario específico por ID
                 $usuario = $this->usuarioServicio->obtenerPorId($usuarioId);
                 
                 if ($usuario) {
                     // Usuario encontrado - mostramos mensaje alentador
-                    $mensaje = "Usuario encontrado. Puedes modificar los datos a continuación:";
+                    if (session('success')) {
+                        $mensaje = session('success');
+                    } else {
+                        $mensaje = "Usuario encontrado. Puedes modificar los datos a continuación:";
+                    }
                 } else {
                     // Usuario no encontrado
                     $mensaje = "No se encontró ningún usuario con ID: {$usuarioId}";
@@ -277,19 +309,65 @@ class UsuarioWebController extends Controller
             
             // Verificamos si se está enviando una actualización (formulario completo)
             if ($request->isMethod('post') && $request->filled('nombre')) {
-                // Validamos todos los campos del formulario
+                // Limpiamos los datos antes de validar
+                // Normalizar RUT - quitar puntos y mantener guión
+                $rutOriginal = $request->get('rut') ? trim($request->get('rut')) : null;
+                $rutNormalizado = null;
+                if ($rutOriginal) {
+                    // Remover puntos del RUT pero mantener el guión
+                    $rutNormalizado = str_replace('.', '', $rutOriginal);
+                }
+                
+                $request->merge([
+                    'nombre' => trim($request->get('nombre')),
+                    'apellido' => trim($request->get('apellido')),
+                    'rut' => $rutNormalizado
+                ]);
+                
+                // Generar email automáticamente basado en nombre y apellido ANTES de validar
+                $nombreLimpio = strtolower(trim($request->get('nombre')));
+                $apellidoLimpio = strtolower(trim($request->get('apellido')));
+                
+                // Limpiar caracteres especiales para el email
+                $nombreEmail = str_replace(
+                    ['á','é','í','ó','ú','ñ','ü'], 
+                    ['a','e','i','o','u','n','u'], 
+                    $nombreLimpio
+                );
+                $apellidoEmail = str_replace(
+                    ['á','é','í','ó','ú','ñ','ü'], 
+                    ['a','e','i','o','u','n','u'], 
+                    $apellidoLimpio
+                );
+                
+                $emailGenerado = $nombreEmail . '.' . $apellidoEmail . '@ventasfix.cl';
+                
+                // Actualizamos el request con el email generado
+                $request->merge(['email' => $emailGenerado]);
+
+                // Validamos todos los campos del formulario con reglas más estrictas
                 $request->validate([
                     'usuario_id' => 'required|integer|exists:users,id',
-                    'nombre' => 'required|string|max:100',
-                    'apellido' => 'required|string|max:100',
-                    'email' => 'required|email|unique:users,email,' . $request->usuario_id,
-                    'rut' => 'nullable|string|max:20'
+                    'nombre' => 'required|string|max:100|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+$/|not_regex:/^\s*$/',
+                    'apellido' => 'required|string|max:100|regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+$/|not_regex:/^\s*$/',
+                    'email' => 'required|email|ends_with:@ventasfix.cl|unique:users,email,' . $request->usuario_id,
+                    'rut' => 'required|string|max:15|regex:/^[0-9]{7,9}-[0-9kK]{1}$/|unique:users,rut,' . $request->usuario_id
+                ], [
+                    // Mensajes personalizados
+                    'nombre.regex' => 'El nombre solo puede contener letras, sin espacios ni números.',
+                    'nombre.not_regex' => 'El nombre no puede estar vacío o contener solo espacios.',
+                    'apellido.regex' => 'El apellido solo puede contener letras, sin espacios ni números.',
+                    'apellido.not_regex' => 'El apellido no puede estar vacío o contener solo espacios.',
+                    'email.ends_with' => 'El email debe terminar en @ventasfix.cl',
+                    'rut.regex' => 'El RUT debe tener formato válido (ej: 12345678-9 o 24269861-4). Los puntos se normalizarán automáticamente.',
+                    'rut.unique' => 'Este RUT ya está registrado en el sistema.',
+                    'rut.required' => 'El RUT es obligatorio.'
                 ]);
 
                 $datosActualizacion = [
                     'nombre' => $request->get('nombre'),
                     'apellido' => $request->get('apellido'),
-                    'email' => $request->get('email'),
+                    'email' => $emailGenerado, // Email ya generado arriba
                     'rut' => $request->get('rut')
                 ];
 
@@ -297,9 +375,12 @@ class UsuarioWebController extends Controller
                 
                 if ($usuarioActualizado) {
                     return redirect()->route('usuarios.actualizar-por-id')
-                        ->with('success', "Usuario con ID {$request->usuario_id} actualizado exitosamente");
+                        ->with('success', "Usuario con ID {$request->usuario_id} actualizado exitosamente")
+                        ->with('usuario_id', $request->usuario_id); // Para mostrar el usuario actualizado
                 } else {
-                    $mensaje = "Error al actualizar el usuario";
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('error', 'Error al actualizar el usuario en la base de datos');
                 }
             }
             
@@ -310,8 +391,13 @@ class UsuarioWebController extends Controller
                 'subtitulo' => 'Busca por ID y actualiza los datos del usuario'
             ]);
             
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Los errores de validación se manejan automáticamente por Laravel
+            throw $e;
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error al actualizar usuario: ' . $e->getMessage());
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Error inesperado al procesar la solicitud: ' . $e->getMessage());
         }
     }
 

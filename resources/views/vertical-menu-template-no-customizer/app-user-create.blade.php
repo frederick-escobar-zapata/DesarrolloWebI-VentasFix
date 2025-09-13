@@ -262,6 +262,126 @@
                 <div data-i18n="Email">Email</div>
               </a>
             </li>
+            <li class="menu-item active open">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Users">Users</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">Buscar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="{{ route('usuarios.create') }}" class="menu-link">
+                    <div data-i18n="Add User">Agregar Usuario</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  </a>
+                </li>                
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-user-view-account.html" class="menu-link">
+                        <div data-i18n="Account">Account</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-security.html" class="menu-link">
+                        <div data-i18n="Security">Security</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-billing.html" class="menu-link">
+                        <div data-i18n="Billing & Plans">Billing & Plans</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-notifications.html" class="menu-link">
+                        <div data-i18n="Notifications">Notifications</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-connections.html" class="menu-link">
+                        <div data-i18n="Connections">Connections</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-package"></i>
+                <div data-i18n="Products">Products</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('productos.index') }}" class="menu-link">
+                    <div data-i18n="List">List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link" onclick="buscarProductoPorId()">
+                    <div data-i18n="List by ID">List by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('productos.create') }}" class="menu-link">
+                    <div data-i18n="Add Product">Add Product</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link" onclick="actualizarProductoPorId()">
+                    <div data-i18n="Update by ID">Update by ID</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link" onclick="eliminarProductoPorId()">
+                    <div data-i18n="Delete by ID">Delete by ID</div>
+                  </a>
+                </li>                
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="verProductoPorId()">
+                        <div data-i18n="Details">Details</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link">
+                        <div data-i18n="Inventory">Inventory</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link">
+                        <div data-i18n="History">History</div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
             <li class="menu-item">
               <a href="app-chat.html" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-messages"></i>
@@ -488,72 +608,6 @@
                   <a href="app-invoice-add.html" class="menu-link">
                     <div data-i18n="Add">Add</div>
                   </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item active open">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-users"></i>
-                <div data-i18n="Users">Users</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.index') }}" class="menu-link">
-                    <div data-i18n="List">List</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.list-by-id') }}" class="menu-link">
-                    <div data-i18n="List by ID">Buscar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item active">
-                  <a href="{{ route('usuarios.create') }}" class="menu-link">
-                    <div data-i18n="Add User">Agregar Usuario</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.actualizar-por-id') }}" class="menu-link">
-                    <div data-i18n="Update by ID">Actualizar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
-                    <div data-i18n="Delete by ID">Eliminar por ID</div>
-                  </a>
-                </li>
-
-                <li class="menu-item">
-                  <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <div data-i18n="View">View</div>
-                  </a>
-                  <ul class="menu-sub">
-                    <li class="menu-item">
-                      <a href="app-user-view-account.html" class="menu-link">
-                        <div data-i18n="Account">Account</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-security.html" class="menu-link">
-                        <div data-i18n="Security">Security</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-billing.html" class="menu-link">
-                        <div data-i18n="Billing & Plans">Billing & Plans</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Notifications</div>
-                      </a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="app-user-view-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
-                      </a>
-                    </li>
-                  </ul>
                 </li>
               </ul>
             </li>
@@ -1838,16 +1892,17 @@
 
                       <!-- Email -->
                       <div class="col-md-6 mb-3">
-                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                        <label for="email" class="form-label">Email <span class="text-danger">*</span> <small class="text-muted">(Generado automáticamente)</small></label>
                         <div class="input-group">
                           <input 
                             type="email" 
                             class="form-control @error('email') is-invalid @enderror" 
                             id="email" 
                             name="email" 
-                            placeholder="Se genera automáticamente..." 
+                            placeholder="nombre.apellido@ventasfix.cl" 
                             value="{{ old('email') }}"
-                            style="background-color: #e7f3ff; cursor: default;"
+                            style="background-color: #f8f9fa; cursor: not-allowed;"
+                            readonly
                             required>
                           <span class="input-group-text">
                             <i class="ti ti-at text-muted" title="Email generado automáticamente"></i>
@@ -1856,8 +1911,8 @@
                         @error('email')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                        <small class="form-text text-success">
-                          <i class="ti ti-check-circle me-1"></i>Se genera automáticamente como: <strong>nombre.apellido@ventasfix.cl</strong>
+                        <small class="form-text text-info">
+                          <i class="ti ti-info-circle me-1"></i>El email se genera automáticamente con formato: nombre.apellido@ventasfix.cl
                         </small>
                       </div>
 
@@ -1968,8 +2023,8 @@
                   
                   <!-- Script para autocompletar email -->
                   <script>
-                    // Expresión regular para solo letras, espacios y caracteres especiales del español
-                    const regexSoloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]*$/;
+                    // Expresión regular para solo letras SIN ESPACIOS
+                    const regexSoloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]*$/;
                     
                     // Función para validar RUT chileno
                     function validarRutChileno(rut) {
@@ -2056,19 +2111,19 @@
                       }
                     }
                     
-                    // Función para validar solo letras y que no sea solo espacios
+                    // Función para validar solo letras sin espacios y que no esté vacío
                     function validarSoloLetras(input, errorId) {
                       const valor = input.value;
                       const valorTrimmed = valor.trim();
                       const isValid = regexSoloLetras.test(valor);
                       const errorDiv = document.getElementById(errorId);
                       
-                      if ((!isValid && valor !== '') || (valorTrimmed === '' && valor !== '')) {
+                      if (!isValid || valorTrimmed === '') {
                         input.classList.add('is-invalid');
-                        if (valorTrimmed === '' && valor !== '') {
-                          errorDiv.textContent = 'No puede contener solo espacios en blanco';
+                        if (valorTrimmed === '') {
+                          errorDiv.textContent = 'Este campo es obligatorio';
                         } else {
-                          errorDiv.textContent = 'Solo se permiten letras y espacios';
+                          errorDiv.textContent = 'Solo se permiten letras, sin espacios ni números';
                         }
                         errorDiv.style.display = 'block';
                         return false;
