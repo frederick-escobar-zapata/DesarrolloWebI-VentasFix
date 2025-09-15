@@ -83,9 +83,8 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-        <!-- Menu -->
-
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+        >
+          <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="{{ route('dashboard') }}" class="app-brand-link">
               <span class="app-brand-logo demo">
@@ -293,6 +292,38 @@
                   <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
                     <div data-i18n="Delete by ID">Eliminar por ID</div>
                   </a>
+                </li>                
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="app-user-view-account.html" class="menu-link">
+                        <div data-i18n="Account">Account</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-security.html" class="menu-link">
+                        <div data-i18n="Security">Security</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-billing.html" class="menu-link">
+                        <div data-i18n="Billing & Plans">Billing & Plans</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-notifications.html" class="menu-link">
+                        <div data-i18n="Notifications">Notifications</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="app-user-view-connections.html" class="menu-link">
+                        <div data-i18n="Connections">Connections</div>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
@@ -329,115 +360,35 @@
                 </li>
               </ul>
             </li>
-            
-            <!-- Clientes Section -->
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-user-check"></i>
-                <div data-i18n="Clients">Clientes</div>
+                <i class="menu-icon tf-icons ti ti-users"></i>
+                <div data-i18n="Clients">Clients</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="{{ route('clientes.index') }}" class="menu-link">
-                    <div data-i18n="List">Lista</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('clientes.list-by-id') }}" class="menu-link">
-                    <div data-i18n="List by ID">Buscar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('clientes.create') }}" class="menu-link">
-                    <div data-i18n="Add Client">Crear Cliente</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('clientes.actualizar-por-id') }}" class="menu-link">
-                    <div data-i18n="Update by ID">Actualizar por ID</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route('clientes.eliminar-por-id') }}" class="menu-link">
-                    <div data-i18n="Delete by ID">Eliminar por ID</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="menu-item">
-              <a href="app-chat.html" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-messages"></i>
-                <div data-i18n="Chat">Chat</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-calendar.html" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-calendar"></i>
-                <div data-i18n="Calendar">Calendar</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="app-kanban.html" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-layout-kanban"></i>
-                <div data-i18n="Kanban">Kanban</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-settings"></i>
-                <div data-i18n="Roles & Permissions">Roles & Permissions</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="app-access-roles.html" class="menu-link">
-                    <div data-i18n="Roles">Roles</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="app-access-permission.html" class="menu-link">
-                    <div data-i18n="Permission">Permission</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Components -->
-            <li class="menu-item">
-              <a href="app-email.html" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-mail"></i>
-                <div data-i18n="Email">Email</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-users"></i>
-                <div data-i18n="Users">Users</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{{ route('usuarios.index') }}" class="menu-link">
                     <div data-i18n="List">List</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="{{ route('usuarios.list-by-id') }}" class="menu-link">
-                    <div data-i18n="List by ID">Buscar por ID</div>
+                  <a href="{{ route('clientes.list-by-id') }}" class="menu-link">
+                    <div data-i18n="List by ID">List by ID</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="{{ route('usuarios.create') }}" class="menu-link">
-                    <div data-i18n="Add User">Agregar Usuario</div>
+                  <a href="{{ route('clientes.create') }}" class="menu-link">
+                    <div data-i18n="Add Client">Add Client</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="{{ route('usuarios.actualizar-por-id') }}" class="menu-link">
-                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  <a href="{{ route('clientes.actualizar-por-id') }}" class="menu-link">
+                    <div data-i18n="Update by ID">Update by ID</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="{{ route('usuarios.eliminar-por-id') }}" class="menu-link">
-                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  <a href="{{ route('clientes.eliminar-por-id') }}" class="menu-link">
+                    <div data-i18n="Delete by ID">Delete by ID</div>
                   </a>
                 </li>
               </ul>
@@ -483,7 +434,7 @@
                       </a>
                     </li>
                     <li class="menu-item">
-                      <a href="app-ecommerce-product-add.html" class="menu-link">
+                      <a href="{{ route('productos.create') }}" class="menu-link">
                         <div data-i18n="Add Product">Add Product</div>
                       </a>
                     </li>
@@ -1375,12 +1326,8 @@
             </li>
           </ul>
         </aside>
-        <!-- / Menu -->
-
         <!-- Layout container -->
         <div class="layout-page">
-          <!-- Navbar -->
-
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar">
@@ -1480,10 +1427,10 @@
                       <div class="row row-bordered overflow-visible g-0">
                         <div class="dropdown-shortcuts-item col">
                           <span class="dropdown-shortcuts-icon rounded-circle mb-3">
-                            <i class="ti ti-package ti-26px text-heading"></i>
+                            <i class="ti ti-user ti-26px text-heading"></i>
                           </span>
-                          <a href="{{ route('productos.index') }}" class="stretched-link">Product App</a>
-                          <small>Manage Products</small>
+                          <a href="app-user-list.html" class="stretched-link">User App</a>
+                          <small>Manage Users</small>
                         </div>
                         <div class="dropdown-shortcuts-item col">
                           <span class="dropdown-shortcuts-icon rounded-circle mb-3">
@@ -1790,12 +1737,12 @@
                     href="javascript:void(0);"
                     data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../../assets/img/avatars/1.png" alt class="rounded-circle" />
+                      <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a class="dropdown-item mt-0" href="pages-account-settings-account.html">
+                      <a class="dropdown-item mt-0" href="#" onclick="return false;">
                         <div class="d-flex align-items-center">
                           <div class="flex-shrink-0 me-2">
                             <div class="avatar avatar-online">
@@ -1803,12 +1750,37 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <h6 class="mb-0">John Doe</h6>
-                            <small class="text-muted">Admin</small>
+                            {{-- INFORMACIÓN DINÁMICA DEL USUARIO AUTENTICADO --}}
+                            {{-- Muestra el nombre real del usuario logueado --}}
+                            <h6 class="mb-0">{{ Auth::user()->name }}</h6>
+                            <small class="text-muted">{{ Auth::user()->email }}</small>
                           </div>
                         </div>
                       </a>
                     </li>
+                    
+                    {{-- INFORMACIÓN DE SESIÓN --}}
+                    <li>
+                      <div class="dropdown-divider my-1 mx-n2"></div>
+                    </li>
+                    <li>
+                      <div class="dropdown-item-text">
+                        <div class="session-info">
+                          {{-- Tiempo de login (cuando inició la sesión) --}}
+                          <small class="text-muted d-flex align-items-center mb-2">
+                            <i class="ti ti-login me-2"></i>
+                            <strong>Ingreso:</strong>&nbsp;{{ \Carbon\Carbon::createFromTimestamp(session('login_time', time()))->setTimezone('America/Santiago')->format('d/m/Y H:i:s') }}
+                          </small>
+                          
+                          {{-- Tiempo de expiración de la sesión --}}
+                          <small class="text-muted d-flex align-items-center">
+                            <i class="ti ti-clock-exclamation me-2"></i>
+                            <strong>Expira:</strong>&nbsp;{{ \Carbon\Carbon::createFromTimestamp(session('login_time', time()))->setTimezone('America/Santiago')->addMinutes((int)config('session.lifetime', 15))->format('d/m/Y H:i:s') }}
+                          </small>
+                        </div>
+                      </div>
+                    </li>
+                    
                     <li>
                       <div class="dropdown-divider my-1 mx-n2"></div>
                     </li>
@@ -1848,10 +1820,15 @@
                     </li>
                     <li>
                       <div class="d-grid px-2 pt-2 pb-1">
-                        <a class="btn btn-sm btn-danger d-flex" href="auth-login-cover.html" target="_blank">
-                          <small class="align-middle">Logout</small>
-                          <i class="ti ti-logout ms-2 ti-14px"></i>
-                        </a>
+                        {{-- BOTÓN DE LOGOUT FUNCIONAL --}}
+                        {{-- Usa nuestro sistema de autenticación real en lugar del enlace estático --}}
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                          @csrf
+                          <button type="submit" class="btn btn-sm btn-danger d-flex w-100 align-items-center justify-content-center">
+                            <small class="align-middle">Cerrar Sesión</small>
+                            <i class="ti ti-logout ms-2 ti-14px"></i>
+                          </button>
+                        </form>
                       </div>
                     </li>
                   </ul>
@@ -1872,6 +1849,7 @@
           </nav>
 
           <!-- / Navbar -->
+
 
           <!-- Content wrapper -->
           <div class="content-wrapper">

@@ -54,6 +54,27 @@
     <!-- Page CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/cards-advance.css') }}" />
 
+    <!-- Estilos personalizados para información de sesión -->
+    <style>
+      .session-info {
+        background: #f8f9fa;
+        border-radius: 4px;
+        padding: 8px 12px;
+        margin: 4px 0;
+      }
+      .session-info small {
+        font-size: 11px;
+        display: block;
+        line-height: 1.4;
+      }
+      .dropdown-item-text {
+        cursor: default;
+      }
+      .dropdown-item-text:hover {
+        background: transparent;
+      }
+    </style>
+
     <!-- Helpers -->
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
@@ -1730,7 +1751,7 @@
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a class="dropdown-item mt-0" href="pages-account-settings-account.html">
+                      <a class="dropdown-item mt-0" href="#" onclick="return false;">
                         <div class="d-flex align-items-center">
                           <div class="flex-shrink-0 me-2">
                             <div class="avatar avatar-online">
@@ -1738,12 +1759,37 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <h6 class="mb-0">John Doe</h6>
-                            <small class="text-muted">Admin</small>
+                            {{-- INFORMACIÓN DINÁMICA DEL USUARIO AUTENTICADO --}}
+                            {{-- Muestra el nombre real del usuario logueado --}}
+                            <h6 class="mb-0">{{ Auth::user()->name }}</h6>
+                            <small class="text-muted">{{ Auth::user()->email }}</small>
                           </div>
                         </div>
                       </a>
                     </li>
+                    
+                    {{-- INFORMACIÓN DE SESIÓN --}}
+                    <li>
+                      <div class="dropdown-divider my-1 mx-n2"></div>
+                    </li>
+                    <li>
+                      <div class="dropdown-item-text">
+                        <div class="session-info">
+                          {{-- Tiempo de login (cuando inició la sesión) --}}
+                          <small class="text-muted d-flex align-items-center mb-2">
+                            <i class="ti ti-login me-2"></i>
+                            <strong>Ingreso:</strong>&nbsp;{{ \Carbon\Carbon::createFromTimestamp(session('login_time', time()))->setTimezone('America/Santiago')->format('d/m/Y H:i:s') }}
+                          </small>
+                          
+                          {{-- Tiempo de expiración de la sesión --}}
+                          <small class="text-muted d-flex align-items-center">
+                            <i class="ti ti-clock-exclamation me-2"></i>
+                            <strong>Expira:</strong>&nbsp;{{ \Carbon\Carbon::createFromTimestamp(session('login_time', time()))->setTimezone('America/Santiago')->addMinutes((int)config('session.lifetime', 15))->format('d/m/Y H:i:s') }}
+                          </small>
+                        </div>
+                      </div>
+                    </li>
+                    
                     <li>
                       <div class="dropdown-divider my-1 mx-n2"></div>
                     </li>
@@ -1783,10 +1829,15 @@
                     </li>
                     <li>
                       <div class="d-grid px-2 pt-2 pb-1">
-                        <a class="btn btn-sm btn-danger d-flex" href="auth-login-cover.html" target="_blank">
-                          <small class="align-middle">Logout</small>
-                          <i class="ti ti-logout ms-2 ti-14px"></i>
-                        </a>
+                        {{-- BOTÓN DE LOGOUT FUNCIONAL --}}
+                        {{-- Usa nuestro sistema de autenticación real en lugar del enlace estático --}}
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                          @csrf
+                          <button type="submit" class="btn btn-sm btn-danger d-flex w-100 align-items-center justify-content-center">
+                            <small class="align-middle">Cerrar Sesión</small>
+                            <i class="ti ti-logout ms-2 ti-14px"></i>
+                          </button>
+                        </form>
                       </div>
                     </li>
                   </ul>

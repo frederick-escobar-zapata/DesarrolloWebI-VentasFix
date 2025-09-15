@@ -63,9 +63,14 @@ return [
     | will be used by the PHP date and date-time functions. The timezone
     | is set to "UTC" by default as it is suitable for most use cases.
     |
+    | CONFIGURACIÓN PERSONALIZADA PARA VENTASFIX:
+    | Configurado para zona horaria de Chile (America/Santiago)
+    | Esto incluye automáticamente el manejo de horario de verano chileno
+    | Afecta todas las funciones de fecha y hora en la aplicación
+    |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'UTC'),
+    'timezone' => env('APP_TIMEZONE', 'America/Santiago'),
 
     /*
     |--------------------------------------------------------------------------

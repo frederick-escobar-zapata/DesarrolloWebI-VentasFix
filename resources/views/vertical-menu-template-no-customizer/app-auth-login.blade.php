@@ -1,19 +1,5 @@
 <!doctype html>
 
-<!--
-  Vista para buscar clientes por ID en VentasFix
-  
-  Esta página permite buscar y visualizar información detallada de clientes específicos
-  utilizando su ID único del sistema.
-  
-  Características:
-  - Búsqueda de cliente por ID
-  - Visualización detallada de información
-  - Interfaz responsive con Bootstrap
-  - Integración con menu vertical
-  - Manejo de estados vacíos
--->
-
 <html
   lang="es"
   class="light-style layout-navbar-fixed layout-menu-fixed layout-compact"
@@ -28,9 +14,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>{{ $titulo ?? 'Lista de Clientes por ID' }} - VentasFix</title>
-    
-    <meta name="description" content="{{ $subtitulo ?? 'Búsqueda de clientes por ID del sistema VentasFix' }}" />
+    <title>Login - VentasFix</title>
+
+    <meta name="description" content="{{ $subtitulo ?? 'Gestión de usuarios del sistema VentasFix' }}" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
@@ -48,6 +34,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/flag-icons.css') }}" />
 
     <!-- Core CSS -->
+
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/core.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/theme-default.css') }}" />
 
@@ -65,6 +52,62 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/@form-validation/form-validation.css') }}" />
 
     <!-- Page CSS -->
+    <style>
+      .content-wrapper {
+        min-height: 100vh;
+      }
+      
+      .login-container {
+        min-height: calc(100vh - 60px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 5%;
+      }
+      
+      .login-card {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      
+      @media (max-width: 768px) {
+        .login-card {
+          max-width: 400px;
+        }
+      }
+
+      /* Posicionar el footer al pie de la página */
+      .content-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+
+      /* Agregar padding al contenido para que no se superponga con el footer */
+      .content-wrapper {
+        padding-bottom: 80px;
+      }
+
+      /* Estilo para el divisor "or" */
+      .text-center hr {
+        position: relative;
+        margin: 0;
+        border: none;
+        height: 1px;
+        background-color: #ddd;
+      }
+
+      .text-center span.bg-white {
+        position: relative;
+        top: -12px;
+        background-color: #fff !important;
+        padding: 0 15px;
+        font-size: 14px;
+      }
+    </style>
 
     <!-- Helpers -->
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
@@ -78,7 +121,9 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="{{ route('dashboard') }}" class="app-brand-link">
               <span class="app-brand-logo demo">
@@ -329,32 +374,54 @@
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="{{ route('productos.index') }}" class="menu-link">
-                    <div data-i18n="List">Listar Todos</div>
+                    <div data-i18n="List">List</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="{{ route('productos.list-by-id') }}" class="menu-link">
-                    <div data-i18n="List by ID">Buscar por ID</div>
+                  <a href="javascript:void(0);" class="menu-link" onclick="buscarProductoPorId()">
+                    <div data-i18n="List by ID">List by ID</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="{{ route('productos.create') }}" class="menu-link">
-                    <div data-i18n="Add Product">Crear Producto</div>
+                    <div data-i18n="Add Product">Add Product</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="{{ route('productos.actualizar-por-id') }}" class="menu-link">
-                    <div data-i18n="Update by ID">Actualizar por ID</div>
+                  <a href="javascript:void(0);" class="menu-link" onclick="actualizarProductoPorId()">
+                    <div data-i18n="Update by ID">Update by ID</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="{{ route('productos.eliminar-por-id') }}" class="menu-link">
-                    <div data-i18n="Delete by ID">Eliminar por ID</div>
+                  <a href="javascript:void(0);" class="menu-link" onclick="eliminarProductoPorId()">
+                    <div data-i18n="Delete by ID">Delete by ID</div>
                   </a>
+                </li>                
+                <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <div data-i18n="View">View</div>
+                  </a>
+                  <ul class="menu-sub">
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="verProductoPorId()">
+                        <div data-i18n="Details">Details</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link">
+                        <div data-i18n="Inventory">Inventory</div>
+                      </a>
+                    </li>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link">
+                        <div data-i18n="History">History</div>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-users"></i>
                 <div data-i18n="Clients">Clients</div>
@@ -365,7 +432,7 @@
                     <div data-i18n="List">List</div>
                   </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="{{ route('clientes.list-by-id') }}" class="menu-link">
                     <div data-i18n="List by ID">List by ID</div>
                   </a>
@@ -428,7 +495,7 @@
                       </a>
                     </li>
                     <li class="menu-item">
-                      <a href="{{ route('productos.create') }}" class="menu-link">
+                      <a href="app-ecommerce-product-add.html" class="menu-link">
                         <div data-i18n="Add Product">Add Product</div>
                       </a>
                     </li>
@@ -1320,635 +1387,223 @@
             </li>
           </ul>
         </aside>
+        <!-- / Menu -->
+        
         <!-- Layout container -->
         <div class="layout-page">
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar">
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="ti ti-menu-2 ti-md"></i>
-              </a>
-            </div>
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="login-container">
+              <div class="login-card">
+                <div class="card shadow-lg border-0">
+                  <div class="card-body p-4 p-md-5">
+                      <!-- Logo -->
+                      <div class="text-center mb-4">
+                        <div class="app-brand justify-content-center">
+                          <span class="app-brand-logo demo">
+                            <svg width="40" height="28" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z" fill="#7367F0"/>
+                            <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z" fill="#161616"/>
+                            <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z" fill="#161616"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z" fill="#7367F0"/>
+                            </svg>
+                          </span>
+                        </div>
+                        <h3 class="fw-bold text-primary mt-3">VentasFix</h3>
+                      </div>
 
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item navbar-search-wrapper mb-0">
-                  <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
-                    <i class="ti ti-search ti-md me-2 me-lg-4 ti-lg"></i>
-                    <span class="d-none d-md-inline-block text-muted fw-normal">Search (Ctrl+/)</span>
-                  </a>
-                </div>
-              </div>
-              <!-- /Search -->
+                      <h4 class="mb-2 text-center">¡Bienvenido de vuelta! 👋</h4>
+                      <p class="mb-4 text-center text-muted">Inicia sesión en tu cuenta para comenzar a gestionar</p>
 
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown">
-                  <a
-                    class="nav-link btn btn-text-secondary btn-icon rounded-pill dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown">
-                    <i class="ti ti-language rounded-circle ti-md"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="en" data-text-direction="ltr">
-                        <span>English</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="fr" data-text-direction="ltr">
-                        <span>French</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="ar" data-text-direction="rtl">
-                        <span>Arabic</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="de" data-text-direction="ltr">
-                        <span>German</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ Language -->
+                      {{-- MANEJO DE MENSAJES DE ERROR Y ÉXITO --}}
+                      {{-- Estos mensajes aparecen cuando el usuario intenta hacer login --}}
+                      
+                      {{-- MENSAJE DE ERROR: Cuando las credenciales son incorrectas --}}
+                      @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                          <i class="ti ti-alert-circle me-2"></i>
+                          <strong>Error de autenticación:</strong>
+                          <ul class="mb-0 mt-2">
+                            @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                            @endforeach
+                          </ul>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                      @endif
 
-                <!-- Quick links  -->
-                <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown">
-                  <a
-                    class="nav-link btn btn-text-secondary btn-icon rounded-pill btn-icon dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false">
-                    <i class="ti ti-layout-grid-add ti-md"></i>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-end p-0">
-                    <div class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h6 class="mb-0 me-auto">Shortcuts</h6>
-                        <a
-                          href="javascript:void(0)"
-                          class="btn btn-text-secondary rounded-pill btn-icon dropdown-shortcuts-add"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Add shortcuts"
-                          ><i class="ti ti-plus text-heading"></i
-                        ></a>
+                      {{-- MENSAJE DE ÉXITO: Cuando se necesita mostrar algún mensaje positivo --}}
+                      @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                          <i class="ti ti-check me-2"></i>
+                          {{ session('success') }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                      @endif
+
+                      {{-- MENSAJE INFORMATIVO: Para cuando alguien es redirigido aquí sin estar autenticado --}}
+                      @if (session('warning') || request()->has('redirect'))
+                        <div class="alert alert-warning alert-dismissible fade show mb-3" role="alert">
+                          <i class="ti ti-alert-triangle me-2"></i>
+                          <strong>Acceso restringido:</strong> 
+                          Debes iniciar sesión para acceder a esta página.
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                      @endif                      <form id="formAuthentication" action="{{ route('login.post') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                          <label for="email" class="form-label fw-medium">Email</label>
+                          <input
+                            type="text"
+                            class="form-control form-control-lg {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                            id="email"
+                            name="email"
+                            value="{{ old('email') }}"
+                            placeholder="Ingresa tu email"
+                            autofocus />
+                          {{-- Mostrar error específico del campo email --}}
+                          @error('email')
+                            <div class="invalid-feedback">
+                              {{ $message }}
+                            </div>
+                          @enderror
+                        </div>
+                        <div class="mb-3 form-password-toggle">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <label class="form-label fw-medium" for="password">Contraseña</label>
+                            <a href="#" class="text-muted">
+                              <small>¿Olvidaste tu contraseña?</small>
+                            </a>
+                          </div>
+                          <div class="input-group input-group-merge">
+                            <input
+                              type="password"
+                              id="password"
+                              class="form-control form-control-lg {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                              name="password"
+                              placeholder="••••••••••••"
+                              aria-describedby="password" />
+                            <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
+                          </div>
+                          {{-- Mostrar error específico del campo password --}}
+                          @error('password')
+                            <div class="invalid-feedback">
+                              {{ $message }}
+                            </div>
+                          @enderror
+                        </div>
+                        <div class="mb-4">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember-me" name="remember" />
+                            <label class="form-check-label" for="remember-me"> Recordarme </label>
+                          </div>
+                        </div>
+                        <div class="mb-4">
+                          <button class="btn btn-primary btn-lg d-grid w-100" type="submit">
+                            <i class="ti ti-login me-2"></i>Iniciar Sesión
+                          </button>
+                        </div>
+                      </form>
+
+                      <!-- Enlace para crear cuenta -->
+                      <div class="text-center mb-3">
+                        <p class="mb-0">
+                          <span class="text-muted">New on our platform? </span>
+                          <a href="#" class="fw-medium text-primary">Create an account</a>
+                        </p>
                       </div>
-                    </div>
-                    <div class="dropdown-shortcuts-list scrollable-container">
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-3">
-                            <i class="ti ti-calendar ti-26px text-heading"></i>
-                          </span>
-                          <a href="app-calendar.html" class="stretched-link">Calendar</a>
-                          <small>Appointments</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-3">
-                            <i class="ti ti-file-dollar ti-26px text-heading"></i>
-                          </span>
-                          <a href="app-invoice-list.html" class="stretched-link">Invoice App</a>
-                          <small>Manage Accounts</small>
+
+                      <!-- Divisor "or" -->
+                      <div class="text-center mb-3">
+                        <hr class="my-3">
+                        <span class="text-muted bg-white px-2">or</span>
+                      </div>
+
+                      <!-- Iconos de redes sociales -->
+                      <div class="text-center mb-4">
+                        <div class="d-flex justify-content-center gap-2">
+                          <a href="#" class="btn btn-outline-primary btn-sm">
+                            <i class="tf-icons fab fa-facebook-f"></i>
+                          </a>
+                          <a href="#" class="btn btn-outline-info btn-sm">
+                            <i class="tf-icons fab fa-twitter"></i>
+                          </a>
+                          <a href="#" class="btn btn-outline-dark btn-sm">
+                            <i class="tf-icons fab fa-github"></i>
+                          </a>
+                          <a href="#" class="btn btn-outline-danger btn-sm">
+                            <i class="tf-icons fab fa-google"></i>
+                          </a>
                         </div>
                       </div>
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-3">
-                            <i class="ti ti-user ti-26px text-heading"></i>
-                          </span>
-                          <a href="app-user-list.html" class="stretched-link">User App</a>
-                          <small>Manage Users</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-3">
-                            <i class="ti ti-users ti-26px text-heading"></i>
-                          </span>
-                          <a href="app-access-roles.html" class="stretched-link">Role Management</a>
-                          <small>Permission</small>
-                        </div>
-                      </div>
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-3">
-                            <i class="ti ti-device-desktop-analytics ti-26px text-heading"></i>
-                          </span>
-                          <a href="index.html" class="stretched-link">Dashboard</a>
-                          <small>User Dashboard</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-3">
-                            <i class="ti ti-settings ti-26px text-heading"></i>
-                          </span>
-                          <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
-                          <small>Account Settings</small>
-                        </div>
-                      </div>
-                      <div class="row row-bordered overflow-visible g-0">
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-3">
-                            <i class="ti ti-help ti-26px text-heading"></i>
-                          </span>
-                          <a href="pages-faq.html" class="stretched-link">FAQs</a>
-                          <small>FAQs & Articles</small>
-                        </div>
-                        <div class="dropdown-shortcuts-item col">
-                          <span class="dropdown-shortcuts-icon rounded-circle mb-3">
-                            <i class="ti ti-square ti-26px text-heading"></i>
-                          </span>
-                          <a href="modal-examples.html" class="stretched-link">Modals</a>
-                          <small>Useful Popups</small>
-                        </div>
-                      </div>
+
+                      <p class="text-center mb-0">
+                        <small class="text-muted">
+                          <i class="ti ti-help-circle me-1"></i>
+                          ¿Problemas para acceder? Contacta al administrador
+                        </small>
+                      </p>
                     </div>
                   </div>
-                </li>
-                <!-- Quick links -->
-
-                <!-- Notification -->
-                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
-                  <a
-                    class="nav-link btn btn-text-secondary btn-icon rounded-pill dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false">
-                    <span class="position-relative">
-                      <i class="ti ti-bell ti-md"></i>
-                      <span class="badge rounded-pill bg-danger badge-dot badge-notifications border"></span>
-                    </span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end p-0">
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h6 class="mb-0 me-auto">Notification</h6>
-                        <div class="d-flex align-items-center h6 mb-0">
-                          <span class="badge bg-label-primary me-2">8 New</span>
-                          <a
-                            href="javascript:void(0)"
-                            class="btn btn-text-secondary rounded-pill btn-icon dropdown-notifications-all"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="top"
-                            title="Mark all as read"
-                            ><i class="ti ti-mail-opened text-heading"></i
-                          ></a>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="dropdown-notifications-list scrollable-container">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/1.png" alt class="rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="small mb-1">Congratulation Lettie 🎉</h6>
-                              <small class="mb-1 d-block text-body">Won the monthly best seller gold badge</small>
-                              <small class="text-muted">1h ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1 small">Charles Franklin</h6>
-                              <small class="mb-1 d-block text-body">Accepted your connection</small>
-                              <small class="text-muted">12hr ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/2.png" alt class="rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1 small">New Message ✉️</h6>
-                              <small class="mb-1 d-block text-body">You have new message from Natalie</small>
-                              <small class="text-muted">1h ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-success"
-                                  ><i class="ti ti-shopping-cart"></i
-                                ></span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1 small">Whoo! You have new order 🛒</h6>
-                              <small class="mb-1 d-block text-body">ACME Inc. made new order $1,154</small>
-                              <small class="text-muted">1 day ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/9.png" alt class="rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1 small">Application has been approved 🚀</h6>
-                              <small class="mb-1 d-block text-body"
-                                >Your ABC project application has been approved.</small
-                              >
-                              <small class="text-muted">2 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-success"
-                                  ><i class="ti ti-chart-pie"></i
-                                ></span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1 small">Monthly report is generated</h6>
-                              <small class="mb-1 d-block text-body">July monthly financial report is generated </small>
-                              <small class="text-muted">3 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/5.png" alt class="rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1 small">Send connection request</h6>
-                              <small class="mb-1 d-block text-body">Peter sent you connection request</small>
-                              <small class="text-muted">4 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <img src="../../assets/img/avatars/6.png" alt class="rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1 small">New message from Jane</h6>
-                              <small class="mb-1 d-block text-body">Your have new message from Jane</small>
-                              <small class="text-muted">5 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar">
-                                <span class="avatar-initial rounded-circle bg-label-warning"
-                                  ><i class="ti ti-alert-triangle"></i
-                                ></span>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <h6 class="mb-1 small">CPU is running high</h6>
-                              <small class="mb-1 d-block text-body"
-                                >CPU Utilization Percent is currently at 88.63%,</small
-                              >
-                              <small class="text-muted">5 days ago</small>
-                            </div>
-                            <div class="flex-shrink-0 dropdown-notifications-actions">
-                              <a href="javascript:void(0)" class="dropdown-notifications-read"
-                                ><span class="badge badge-dot"></span
-                              ></a>
-                              <a href="javascript:void(0)" class="dropdown-notifications-archive"
-                                ><span class="ti ti-x"></span
-                              ></a>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="border-top">
-                      <div class="d-grid p-4">
-                        <a class="btn btn-primary btn-sm d-flex" href="javascript:void(0);">
-                          <small class="align-middle">View all notifications</small>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ Notification -->
-
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow p-0"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item mt-0" href="#" onclick="return false;">
-                        <div class="d-flex align-items-center">
-                          <div class="flex-shrink-0 me-2">
-                            <div class="avatar avatar-online">
-                              <img src="../../assets/img/avatars/1.png" alt class="rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            {{-- INFORMACIÓN DINÁMICA DEL USUARIO AUTENTICADO --}}
-                            {{-- Muestra el nombre real del usuario logueado --}}
-                            <h6 class="mb-0">{{ Auth::user()->name }}</h6>
-                            <small class="text-muted">{{ Auth::user()->email }}</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    
-                    {{-- INFORMACIÓN DE SESIÓN --}}
-                    <li>
-                      <div class="dropdown-divider my-1 mx-n2"></div>
-                    </li>
-                    <li>
-                      <div class="dropdown-item-text">
-                        <div class="session-info">
-                          {{-- Tiempo de login (cuando inició la sesión) --}}
-                          <small class="text-muted d-flex align-items-center mb-2">
-                            <i class="ti ti-login me-2"></i>
-                            <strong>Ingreso:</strong>&nbsp;{{ \Carbon\Carbon::createFromTimestamp(session('login_time', time()))->setTimezone('America/Santiago')->format('d/m/Y H:i:s') }}
-                          </small>
-                          
-                          {{-- Tiempo de expiración de la sesión --}}
-                          <small class="text-muted d-flex align-items-center">
-                            <i class="ti ti-clock-exclamation me-2"></i>
-                            <strong>Expira:</strong>&nbsp;{{ \Carbon\Carbon::createFromTimestamp(session('login_time', time()))->setTimezone('America/Santiago')->addMinutes((int)config('session.lifetime', 15))->format('d/m/Y H:i:s') }}
-                          </small>
-                        </div>
-                      </div>
-                    </li>
-                    
-                    <li>
-                      <div class="dropdown-divider my-1 mx-n2"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="pages-profile-user.html">
-                        <i class="ti ti-user me-3 ti-md"></i><span class="align-middle">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.html">
-                        <i class="ti ti-settings me-3 ti-md"></i><span class="align-middle">Settings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="pages-account-settings-billing.html">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 ti ti-file-dollar me-3 ti-md"></i
-                          ><span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge bg-danger d-flex align-items-center justify-content-center"
-                            >4</span
-                          >
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider my-1 mx-n2"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="pages-pricing.html">
-                        <i class="ti ti-currency-dollar me-3 ti-md"></i><span class="align-middle">Pricing</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="pages-faq.html">
-                        <i class="ti ti-question-mark me-3 ti-md"></i><span class="align-middle">FAQ</span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="d-grid px-2 pt-2 pb-1">
-                        {{-- BOTÓN DE LOGOUT FUNCIONAL --}}
-                        {{-- Usa nuestro sistema de autenticación real en lugar del enlace estático --}}
-                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                          @csrf
-                          <button type="submit" class="btn btn-sm btn-danger d-flex w-100 align-items-center justify-content-center">
-                            <small class="align-middle">Cerrar Sesión</small>
-                            <i class="ti ti-logout ms-2 ti-14px"></i>
-                          </button>
-                        </form>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ User -->
-              </ul>
+                </div>
+              </div>
             </div>
+            <!-- / Content -->
 
-            <!-- Search Small Screens -->
-            <div class="navbar-search-wrapper search-input-wrapper d-none">
-              <input
-                type="text"
-                class="form-control search-input container-xxl border-0"
-                placeholder="Search..."
-                aria-label="Search..." />
-              <i class="ti ti-x search-toggler cursor-pointer"></i>
-            </div>
-          </nav>
+            
 
-          <!-- / Navbar -->
+            
+
+           
+          </div>
+        </div>
+        <!-- /Login -->
+                
+          
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
 
-            <div class="container-xxl flex-grow-1 container-p-y">
-
-              <!-- Cliente Search -->
-              <div class="card mb-4">
-                <div class="card-header">
-                  <h5 class="card-title mb-0">{{ $titulo ?? 'Lista de Clientes por ID' }}</h5>
-                  <p class="card-text text-muted mt-1">{{ $subtitulo ?? 'Búsqueda de clientes por ID del sistema VentasFix' }}</p>
-                </div>
-                <div class="card-body">
-                  <form method="GET" action="{{ route('clientes.list-by-id') }}" class="d-flex gap-3 align-items-end">
-                    <div class="flex-grow-1">
-                      <label for="cliente_id" class="form-label">ID del Cliente</label>
-                      <input 
-                        type="number" 
-                        class="form-control" 
-                        id="cliente_id" 
-                        name="cliente_id" 
-                        placeholder="Ingrese el ID del cliente..."
-                        value="{{ request('cliente_id') }}"
-                        min="1"
-                      />
-                    </div>
-                    <div>
-                      <button type="submit" class="btn btn-primary">
-                        <i class="ti ti-search me-1"></i>Buscar
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-
-              @if(request()->has('cliente_id') && request('cliente_id'))
-                <div class="alert alert-{{ $clientes->count() > 0 ? 'success' : 'warning' }} alert-dismissible fade show" role="alert">
-                  <i class="ti ti-{{ $clientes->count() > 0 ? 'check' : 'alert-circle' }} me-2"></i>
-                  {{ $clientes->count() > 0 ? 'Cliente encontrado exitosamente' : 'No se encontró el cliente con ID: ' . request('cliente_id') }}
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              @endif
-
-              <!-- Cliente Results -->
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="card-title mb-0">{{ $titulo ?? 'Buscar Cliente por ID' }}</h5>
-                  <p class="card-text text-muted mt-1">Ingrese el ID del cliente para ver sus datos</p>
-                </div>
-                <div class="card-body">
-                  @if(request()->has('cliente_id') && request('cliente_id'))
-                    @if($clientes && $clientes->count() > 0)
-                      <div class="table-responsive text-nowrap">
-                        <table class="table table-bordered">
-                          <thead class="table-light">
-                            <tr>
-                              <th>ID</th>
-                              <th>RUT</th>
-                              <th>Razón Social</th>
-                              <th>Rubro</th>
-                              <th>Contacto</th>
-                              <th>Email</th>
-                              <th>Direccion</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            @foreach($clientes as $cliente)
-                              <tr>
-                                <td>{{ $cliente->id }}</td>
-                                <td>{{ $cliente->rut_empresa }}</td>
-                                <td>{{ $cliente->razon_social }}</td>
-                                <td>{{ $cliente->rubro }}</td>
-                                <td>{{ $cliente->nombre_contacto }}</td>
-                                <td>{{ $cliente->email_contacto }}</td>
-                                <td>{{ $cliente->direccion }}</td>
-                              </tr>
-                            @endforeach
-                          </tbody>
-                        </table>
-                      </div>
-                    @else
-                      {{-- Estado de no encontrado --}}
-                      <div class="text-center py-5">
-                        <div class="mb-4">
-                          <i class="ti ti-search-off ti-64px text-muted"></i>
-                        </div>
-                        <h5 class="mb-2">Cliente no encontrado</h5>
-                        <p class="text-muted mb-4">No se encontró ningún cliente con el ID proporcionado</p>
-                      </div>
-                    @endif
-                  @else
-                    {{-- Estado inicial --}}
-                    <div class="text-center py-5">
-                      <div class="mb-4">
-                        <i class="ti ti-search ti-64px text-muted"></i>
-                      </div>
-                      <h5 class="mb-2">Buscar Cliente por ID</h5>
-                      <p class="text-muted">Ingrese un ID en el campo de búsqueda para encontrar el cliente</p>
-                    </div>
-                  @endif
-                </div>
-              </div>
-              <!--/ Cliente Results -->
-            </div>
+            
             <!-- / Content -->
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl">
+                <div
+                  class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                  <div class="text-body">
+                    ©
+                    <script>
+                      document.write(new Date().getFullYear());
+                    </script>
+                    , made with ❤️ by <a href="https://pixinvent.com" target="_blank" class="footer-link">Pixinvent</a>
+                  </div>
+                  <div class="d-none d-lg-inline-block">
+                    <a href="https://themeforest.net/licenses/standard" class="footer-link me-4" target="_blank"
+                      >License</a
+                    >
+                    <a href="https://1.envato.market/pixinvent_portfolio" target="_blank" class="footer-link me-4"
+                      >More Themes</a
+                    >
+
+                    <a
+                      href="https://demos.pixinvent.com/vuexy-html-admin-template/documentation/"
+                      target="_blank"
+                      class="footer-link me-4"
+                      >Documentation</a
+                    >
+
+                    <a href="https://pixinvent.ticksy.com/" target="_blank" class="footer-link d-none d-sm-inline-block"
+                      >Support</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>
           </div>
@@ -1993,6 +1648,21 @@
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
-    <!-- Page JS -->
+    <!-- VentasFix Custom JS -->
+    <script>
+        // Función para confirmar eliminación
+        function confirmarEliminar(id) {
+            if(confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+                // Aquí se implementaría la eliminación via AJAX o formulario
+                console.log('Eliminar usuario:', id);
+                alert('Funcionalidad de eliminación por implementar');
+            }
+        }
+        
+        // Configuración para silenciar advertencias de DataTables
+        $(document).ready(function() {
+            $.fn.dataTable.ext.errMode = 'none';
+        });
+    </script>
   </body>
 </html>

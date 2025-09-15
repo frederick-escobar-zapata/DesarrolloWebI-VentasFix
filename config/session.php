@@ -32,7 +32,10 @@ return [
     |
     */
 
-    'lifetime' => env('SESSION_LIFETIME', 120),
+    // CONFIGURACIÓN PERSONALIZADA: Sesión de 15 minutos para VentasFix
+    // Cambiado de 120 minutos (por defecto) a 15 minutos
+    // Esto significa que si un usuario está inactivo por 15 minutos, será deslogueado automáticamente
+    'lifetime' => env('SESSION_LIFETIME', 15),
 
     'expire_on_close' => env('SESSION_EXPIRE_ON_CLOSE', false),
 
