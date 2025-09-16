@@ -12,16 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Eliminar columnas no necesarias
-            $table->dropColumn(['name', 'email_verified_at']);
+            // Verificar y eliminar columnas solo si existen
+            if (Schema::hasColumn('users', 'name')) {
+                $table->dropColumn('name');
+            }
+            if (Schema::hasColumn('users', 'email_verified_at')) {
+                $table->dropColumn('email_verified_at');
+            }
             
-            // Agregar nuevas columnas para VentasFix
-            $table->string('rut')->unique()->after('id');
-            $table->string('nombre')->after('rut');
-            $table->string('apellido')->after('nombre');
-            
-            // Modificar email para que sea único y tenga formato específico
-            $table->string('email')->unique()->change();
+            // Agregar nuevas columnas para VentasFix solo si no existen
+            if (!Schema::hasColumn('users', 'rut')) {
+                $table->string('rut')->unique()->after('id');
+            }
+            if (!Schema::hasColumn('users', 'nombre')) {
+                $table->string('nombre')->after('rut');
+            }
+            if (!Schema::hasColumn('users', 'apellido')) {
+                $table->string('apellido')->after('nombre');
+            }
         });
     }
 

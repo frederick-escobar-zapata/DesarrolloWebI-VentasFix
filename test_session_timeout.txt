@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Script de prueba para verificar timeout de sesión
+echo "=== PRUEBA DE TIMEOUT DE SESIÓN ===" 
+
+echo "1. Configuración actual:"
+echo "   - Sesiones expiran en 1 minuto (modo debug)"
+echo "   - Middleware aplicado a /usuarios"
+echo ""
+
+echo "2. Para probar:"
+echo "   a) Inicia sesión en la aplicación"
+echo "   b) Ve a /usuarios - debería funcionar"
+echo "   c) Espera 1 minuto"
+echo "   d) Ve a /usuarios nuevamente - debería redirigir a login"
+echo ""
+
+echo "3. Si no funciona, revisa los logs en storage/logs/laravel.log"
+echo ""
+
+echo "Para volver a 15 minutos, cambia en CheckSessionTimeout.php:"
+echo "   \$sessionLifetime = 15;"

@@ -99,7 +99,7 @@ class AutenticacionController extends Controller
             $request->session()->put('user_ip', $request->ip());
 
             // PASO 5: Redirigir al dashboard con mensaje de éxito
-            return redirect()->route('home')
+            return redirect()->route('dashboard')
                 ->with('success', '¡Bienvenido de vuelta, ' . Auth::user()->name . '!');
         }
 

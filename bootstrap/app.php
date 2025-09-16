@@ -12,7 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Registrar middleware personalizado para verificar timeout de sesión
+        $middleware->alias([
+            'check.session.timeout' => \App\Http\Middleware\CheckSessionTimeout::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // Configurar respuestas JSON para la API cuando no está autenticado

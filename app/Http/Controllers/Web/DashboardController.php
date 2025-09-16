@@ -7,6 +7,7 @@ use App\Services\UsuarioServicio;
 use App\Services\ProductoServicio;
 use App\Services\ClienteServicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
@@ -28,10 +29,28 @@ class DashboardController extends Controller
     public function index()
     {
         try {
-            // Obtener contadores usando los Services existentes
-            $totalUsuarios = $this->usuarioServicio->listarTodos()->count();
-            $totalProductos = $this->productoServicio->listarTodos()->count();
-            $totalClientes = $this->clienteServicio->listarTodos()->count();
+            // Obtener contadores usando los Services existentes con manejo de errores
+            $totalUsuarios = 0;
+            $totalProductos = 0; 
+            $totalClientes = 0;
+            
+            try {
+                $totalUsuarios = $this->usuarioServicio->listarTodos()->count();
+            } catch (\Exception $e) {
+                Log::warning('Error al obtener total usuarios: ' . $e->getMessage());
+            }
+            
+            try {
+                $totalProductos = $this->productoServicio->listarTodos()->count();
+            } catch (\Exception $e) {
+                Log::warning('Error al obtener total productos: ' . $e->getMessage());
+            }
+            
+            try {
+                $totalClientes = $this->clienteServicio->listarTodos()->count();
+            } catch (\Exception $e) {
+                Log::warning('Error al obtener total clientes: ' . $e->getMessage());
+            }
 
             // Datos para el dashboard
             $dashboardData = [
